@@ -5,13 +5,13 @@ export enum TodoPriorety {
 }
 
 export interface Todo {
-  id: string;
+  id?: string;
   userId: string;
   title: string;
   description: string;
   createdDate: string;
   deadlineDate: string | undefined;
   priorety: TodoPriorety;
-  bookmark: boolean;
+  favourite: boolean;
   tags: string[];
 }

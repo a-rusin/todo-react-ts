@@ -1,0 +1,23 @@
+.datepicker-block {
+}
+
+.datepicker-label {
+  display: block;
+  width: 100%;
+  font-size: 20rem;
+  padding-bottom: 10rem;
+  cursor: pointer;
+}
+
+.datepicker-field {
+  background-color: rgba(255, 255, 255, 0.12);
+  border: none;
+  outline: none;
+  display: block;
+  width: 100%;
+  padding: 20rem 14rem;
+  color: #fff;
+  font-size: 18rem;
+  font-family: inherit;
+  border-radius: 10rem;
+}

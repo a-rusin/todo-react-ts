@@ -1,0 +1,25 @@
+.btn {
+  display: block;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.btn.primary {
+  color: #fff;
+  background-color: rgb(51, 153, 255);
+  padding: 18rem 10rem;
+  border-radius: 10rem;
+  font-size: 20rem;
+}
+
+.btn.secondary {
+  color: rgb(51, 153, 255);
+  border: 1rem solid rgb(51, 153, 255);
+  padding: 18rem 10rem;
+  border-radius: 10rem;
+  font-size: 20rem;
+}

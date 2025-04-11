@@ -2,6 +2,15 @@
 
 :root {
   --font-size-html: calc(1vw / 14.4);
+  --main-bg-color: rgb(15, 18, 20);
+  --main-color: rgb(255, 255, 255);
+  --secondary-color: rgb(51, 153, 255);
+}
+
+@media (min-width: 1441px) {
+  :root {
+    --font-size-html: 1px;
+  }
 }
 
 * {
@@ -19,9 +28,50 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 16rem;
   font-weight: 400;
+  background-color: var(--main-bg-color);
+  color: var(--main-color);
 }
 
 ul,
 li {
   list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  max-width: 900rem;
+  margin: 0 auto;
+  padding: 30rem 20rem;
+}
+
+.main-title {
+  font-size: 42rem;
+  line-height: 120%;
+}
+
+.go-back {
+  color: var(--secondary-color);
+  font-size: 18rem;
+  line-height: 110%;
+  margin-top: 14rem;
+  display: inline-block;
+}
+
+.form-create-update {
+  margin-top: 30rem;
+  border: 1rem solid rgba(61, 71, 81, 0.3);
+  padding: 24rem;
+  border-radius: 10rem;
+}
+
+.form-create-update > *:not(:first-child) {
+  padding-top: 20rem;
+}
+
+.btns-group {
+  display: flex;
+  gap: 14rem;
 }
