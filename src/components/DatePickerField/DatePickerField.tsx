@@ -6,6 +6,7 @@ interface DatePickerFieldProps {
   name: string;
   value: string;
   onChange: ({ name, value }: { name: string; value: string }) => void;
+  errors?: string[];
 }
 
 export const DatePickerField = ({
@@ -14,13 +15,14 @@ export const DatePickerField = ({
   name,
   onChange,
   value,
+  errors,
 }: DatePickerFieldProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange({ name: e.target.name, value: e.target.value });
   };
 
   return (
-    <div className="datepicker-block">
+    <div className={errors ? "datepicker-block invalid" : "datepicker-block"}>
       <label htmlFor={id} className="datepicker-label">
         {label}:
       </label>
@@ -32,6 +34,15 @@ export const DatePickerField = ({
         onChange={handleChange}
         value={value}
       />
+      {errors && (
+        <ul className="error-message-input-list">
+          {errors.map((error, index) => (
+            <li key={index} className="error-message-input-item">
+              *{error}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

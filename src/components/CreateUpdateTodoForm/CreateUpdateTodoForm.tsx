@@ -1,4 +1,5 @@
 import { CreateAndUpateFormValue } from "../../models/CreateAndUpdate";
+import { ValidatorResult } from "../../models/ValidatorConfig";
 import { Button } from "../Button/Button";
 import { CheckBoxFiled } from "../CheckBoxField/CheckBoxField";
 import { DatePickerField } from "../DatePickerField/DatePickerField";
@@ -13,6 +14,7 @@ interface CreateAndUpdateFormProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleReset: () => void;
   options: any;
+  errors?: ValidatorResult;
 }
 
 export const CreateAndUpdateForm = ({
@@ -21,6 +23,7 @@ export const CreateAndUpdateForm = ({
   options,
   handleSubmit,
   handleReset,
+  errors,
 }: CreateAndUpdateFormProps) => {
   return (
     <form className="form-create-update" onSubmit={handleSubmit}>
@@ -33,6 +36,7 @@ export const CreateAndUpdateForm = ({
         name="title"
         placeholder="Начините печатать..."
         autoComplete="off"
+        errors={errors?.title}
       />
       <TextAreaField
         id="description"
@@ -41,6 +45,7 @@ export const CreateAndUpdateForm = ({
         onChange={handleChange}
         name="description"
         placeholder="Начините печатать..."
+        errors={errors?.description}
       />
       <DatePickerField
         id="date-deadline"
@@ -48,6 +53,7 @@ export const CreateAndUpdateForm = ({
         name="dateDeadline"
         value={formValue.dateDeadline}
         onChange={handleChange}
+        errors={errors?.dateDeadline}
       />
       <SingleSelectField
         label="Приоретет"
@@ -56,8 +62,8 @@ export const CreateAndUpdateForm = ({
         value={formValue.priorety}
         onChange={handleChange}
         placeholder="Выберите приоретет..."
+        errors={errors?.priorety}
       />
-
       <MultiSelectField
         label="Теги"
         onChange={handleChange}
@@ -65,6 +71,7 @@ export const CreateAndUpdateForm = ({
         name="tags"
         options={options}
         placeholder="Выберите теги..."
+        errors={errors?.tags}
       />
       <CheckBoxFiled
         checked={formValue.favourite}
@@ -72,6 +79,7 @@ export const CreateAndUpdateForm = ({
         label="Добавить задачу в избранное"
         name="favourite"
         onChange={handleChange}
+        errors={errors?.favourite}
       />
       <div className="btns-group">
         <Button label="Создать" cssType="primary" type="submit" />

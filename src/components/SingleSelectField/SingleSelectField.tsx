@@ -17,6 +17,7 @@ interface SingleSelectFieldProps {
   }) => void;
   placeholder: string;
   options: SingleSelectOptions[];
+  errors?: string[];
 }
 
 export const SingleSelectField = ({
@@ -26,6 +27,7 @@ export const SingleSelectField = ({
   value,
   placeholder,
   options,
+  errors,
 }: SingleSelectFieldProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -38,7 +40,10 @@ export const SingleSelectField = ({
   };
 
   return (
-    <div className="singleselect-block" onClick={toggleMenu}>
+    <div
+      className={errors ? "singleselect-block invalid" : "singleselect-block"}
+      onClick={toggleMenu}
+    >
       <label className="singleselect-label">{label}:</label>
       <Select<SingleSelectOptions>
         name={name}
@@ -50,6 +55,15 @@ export const SingleSelectField = ({
         value={value}
         menuIsOpen={isMenuOpen}
       />
+      {errors && (
+        <ul className="error-message-input-list">
+          {errors.map((error, index) => (
+            <li key={index} className="error-message-input-item">
+              *{error}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

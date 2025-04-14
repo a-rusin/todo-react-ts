@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { SingleSelectOptions } from "../models/MultiSingleSelectOptions";
 import { CreateAndUpdateForm } from "../components/CreateUpdateTodoForm/CreateUpdateTodoForm";
-import { HandleChangeTypes } from "../models/HandleChange";
 import { CreateAndUpateFormValue } from "../models/CreateAndUpdate";
 import { useForm } from "../hooks/useForm";
+import { ValidatorConfig } from "../models/ValidatorConfig";
 
 const mockDataOptions: SingleSelectOptions[] = [
   { label: "test", value: "test" },
@@ -20,9 +19,29 @@ const defaultValue: CreateAndUpateFormValue = {
   tags: null,
 };
 
+const validatorConfig: ValidatorConfig = {
+  title: {
+    isRequired: true,
+    email: true,
+  },
+  description: {
+    isRequired: true,
+  },
+  dateDeadline: {
+    isRequired: true,
+  },
+  priorety: {
+    isRequired: true,
+  },
+};
+
 export const TodoCreatePage = () => {
-  const { formValue, handleChange, handleReset, handleSubmit } =
-    useForm<CreateAndUpateFormValue>({ defaultValue, onSubmit });
+  const { formValue, handleChange, handleReset, handleSubmit, errors } =
+    useForm<CreateAndUpateFormValue>({
+      defaultValue,
+      onSubmit,
+      validatorConfig,
+    });
 
   function onSubmit(data: CreateAndUpateFormValue) {
     console.log(data);
@@ -40,6 +59,7 @@ export const TodoCreatePage = () => {
         handleReset={handleReset}
         handleSubmit={handleSubmit}
         options={mockDataOptions}
+        errors={errors}
       />
     </div>
   );

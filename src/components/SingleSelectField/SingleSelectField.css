@@ -8,10 +8,10 @@
 
 .select__control {
   background-color: rgba(255, 255, 255, 0.12) !important;
-  border-color: transparent !important;
-  border: none !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  border: 1rem solid rgba(255, 255, 255, 0.12) !important;
   border-radius: 10rem !important;
-  border-width: 0 !important;
+  border-width: 1rem !important;
   min-height: 64rem !important;
   font-size: 18rem !important;
   font-family: inherit !important;
@@ -95,4 +95,19 @@
 
 .select__single-value {
   color: #fff !important;
+}
+
+.singleselect-block.invalid .select__control {
+  border-color: rgb(202, 9, 9) !important;
+  border: 1rem solid rgb(202, 9, 9) !important;
+}
+
+.error-message-input-list {
+  padding-top: 8rem;
+}
+
+.error-message-input-item {
+  color: rgb(202, 9, 9);
+  font-size: 16rem;
+  font-weight: normal;
 }

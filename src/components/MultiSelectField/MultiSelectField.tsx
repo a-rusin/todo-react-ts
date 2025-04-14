@@ -16,6 +16,7 @@ interface MultiSelectFieldProps {
   name: string;
   options: SingleSelectOptions[];
   placeholder: string;
+  errors?: string[];
 }
 
 export const MultiSelectField = ({
@@ -25,6 +26,7 @@ export const MultiSelectField = ({
   value,
   options,
   placeholder,
+  errors,
 }: MultiSelectFieldProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -37,7 +39,10 @@ export const MultiSelectField = ({
   };
 
   return (
-    <div className="multiselect-block" onClick={toggleMenu}>
+    <div
+      className={errors ? "multiselect-block invalid" : "multiselect-block"}
+      onClick={toggleMenu}
+    >
       <label className="multiselect-label">{label}:</label>
       <Select<SingleSelectOptions, true>
         defaultValue={[]}
@@ -52,6 +57,15 @@ export const MultiSelectField = ({
         value={value}
         menuIsOpen={isMenuOpen}
       />
+      {errors && (
+        <ul className="error-message-input-list">
+          {errors.map((error, index) => (
+            <li key={index} className="error-message-input-item">
+              *{error}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

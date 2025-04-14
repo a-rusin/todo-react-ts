@@ -8,6 +8,7 @@ interface TextAreaFieldProps {
   onChange: ({ name, value }: { name: string; value: string }) => void;
   placeholder?: string;
   name: string;
+  errors?: string[];
 }
 
 export const TextAreaField = ({
@@ -17,13 +18,14 @@ export const TextAreaField = ({
   onChange,
   placeholder,
   name,
+  errors,
 }: TextAreaFieldProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChange({ name: e.target.name, value: e.target.value });
   };
 
   return (
-    <div className="textarea-block">
+    <div className={errors ? "textarea-block invalid" : "textarea-block"}>
       <label htmlFor={id} className="textarea-label">
         {label}:
       </label>
@@ -35,6 +37,15 @@ export const TextAreaField = ({
         placeholder={placeholder}
         name={name}
       />
+      {errors && (
+        <ul className="error-message-input-list">
+          {errors.map((error, index) => (
+            <li key={index} className="error-message-input-item">
+              *{error}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

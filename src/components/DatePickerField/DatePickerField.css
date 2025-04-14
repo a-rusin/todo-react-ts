@@ -11,7 +11,7 @@
 
 .datepicker-field {
   background-color: rgba(255, 255, 255, 0.12);
-  border: none;
+  border: 1rem solid rgba(255, 255, 255, 0.12);
   outline: none;
   display: block;
   width: 100%;
@@ -20,4 +20,18 @@
   font-size: 18rem;
   font-family: inherit;
   border-radius: 10rem;
+}
+
+.datepicker-block.invalid .datepicker-field {
+  border: 1rem solid rgb(202, 9, 9);
+}
+
+.error-message-input-list {
+  padding-top: 8rem;
+}
+
+.error-message-input-item {
+  color: rgb(202, 9, 9);
+  font-size: 16rem;
+  font-weight: normal;
 }

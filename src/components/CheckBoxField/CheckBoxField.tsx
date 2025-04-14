@@ -6,6 +6,7 @@ interface CheckBoxFiledProps {
   onChange: ({ name, value }: { name: string; value: boolean }) => void;
   name: string;
   checked: boolean;
+  errors?: string[];
 }
 
 export const CheckBoxFiled = ({
@@ -14,6 +15,7 @@ export const CheckBoxFiled = ({
   onChange,
   label,
   checked,
+  errors,
 }: CheckBoxFiledProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange({ name: e.target.name, value: e.target.checked });
