@@ -3,12 +3,6 @@ import "./MultiSelectField.css";
 import { SingleSelectOptions } from "../../models/MultiSingleSelectOptions";
 import { useState } from "react";
 
-/*
-TODO:
-props: value, options (TS), placeholder
-onClick label => focus input
-*/
-
 interface MultiSelectFieldProps {
   label: string;
   onChange: ({
@@ -18,7 +12,7 @@ interface MultiSelectFieldProps {
     name: string;
     value: readonly SingleSelectOptions[];
   }) => void;
-  value: SingleSelectOptions | null;
+  value: SingleSelectOptions[] | null;
   name: string;
   options: SingleSelectOptions[];
   placeholder: string;
@@ -52,7 +46,6 @@ export const MultiSelectField = ({
         options={options}
         className="basic-multi-select"
         classNamePrefix="select"
-        closeMenuOnSelect={false}
         hideSelectedOptions={true}
         placeholder={placeholder}
         onChange={handleChange}
