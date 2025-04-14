@@ -1,38 +1,40 @@
 import { useForm } from "../../hooks/useForm";
-import { LoginValue } from "../../models/LoginRegister";
+import { LoginValue, RegisterValue } from "../../models/LoginRegister";
 import { ValidatorConfig } from "../../models/ValidatorConfig";
 import { LoginRegisterFormType } from "../../pages/LoginPage";
 import { Button } from "../Button/Button";
 import { InputField } from "../InputField/InputField";
-import "./LoginForm.css";
+import "./RegisterForm.css";
 
-const defaultValue: LoginValue = {
+const defaultValue: RegisterValue = {
   login: "",
+  email: "",
   password: "",
 };
 
 const validatorConfig: ValidatorConfig = {
   login: {
     isRequired: true,
-    email: true,
+  },
+  email: {
+    isRequired: true,
   },
   password: {
     isRequired: true,
   },
 };
 
-interface LoginFormProps {
+interface RegisterFormProps {
   handleClick: (type: LoginRegisterFormType) => void;
 }
 
-export const LoginForm = ({ handleClick }: LoginFormProps) => {
-  const { formValue, handleChange, handleSubmit, errors } = useForm<LoginValue>(
-    {
+export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
+  const { formValue, handleChange, handleSubmit, errors } =
+    useForm<RegisterValue>({
       defaultValue,
       onSubmit,
       validatorConfig,
-    }
-  );
+    });
 
   function onSubmit(data: LoginValue) {
     console.log(data);
@@ -40,7 +42,7 @@ export const LoginForm = ({ handleClick }: LoginFormProps) => {
 
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
-      <h1 className="main-title">Авторизация</h1>
+      <h1 className="main-title">Регистрация</h1>
       <InputField
         autoComplete="off"
         id="login"
@@ -50,6 +52,17 @@ export const LoginForm = ({ handleClick }: LoginFormProps) => {
         type="text"
         value={formValue.login}
         errors={errors?.login}
+        placeholder="Начите печать..."
+      />
+      <InputField
+        autoComplete="off"
+        id="email"
+        label="Пароль"
+        name="email"
+        onChange={handleChange}
+        type="email"
+        value={formValue.email}
+        errors={errors?.email}
         placeholder="Начите печать..."
       />
       <InputField
@@ -64,11 +77,11 @@ export const LoginForm = ({ handleClick }: LoginFormProps) => {
         placeholder="Начите печать..."
       />
       <div className="btns-auth-group">
-        <Button label="Войти" cssType="primary" type="submit" />
+        <Button label="Регистрация" cssType="primary" type="submit" />
       </div>
       <p className="auth-form-change-mode">
-        Еще нет аккаунта?{" "}
-        <span onClick={() => handleClick("register")}>Зарегистрироваться </span>
+        Уже есть аккаунт?{" "}
+        <span onClick={() => handleClick("login")}>Войти</span>
       </p>
     </form>
   );

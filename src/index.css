@@ -75,3 +75,31 @@ a {
   display: flex;
   gap: 14rem;
 }
+
+.auth-container {
+  max-width: 700rem;
+  margin: 0 auto;
+  padding: 200rem 20rem 0;
+}
+
+.auth-form {
+  margin-top: 30rem;
+  border: 1rem solid rgba(61, 71, 81, 0.3);
+  padding: 24rem;
+  border-radius: 10rem;
+}
+
+.auth-form > *:not(:first-child) {
+  padding-top: 20rem;
+}
+
+.auth-form-change-mode {
+  text-align: center;
+  font-size: 16rem;
+}
+
+.auth-form-change-mode span {
+  color: rgb(51, 153, 255);
+  cursor: pointer;
+  text-decoration: underline;
+}

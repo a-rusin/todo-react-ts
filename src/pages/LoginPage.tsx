@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { LoginForm } from "../components/LoginForm/LoginFrom";
+import { RegisterForm } from "../components/RegisterForm/RegisterForm";
 
 export type LoginRegisterFormType = "login" | "register";
 
@@ -12,7 +13,11 @@ export const LoginPage = () => {
 
   return (
     <div className="auth-container">
-      <LoginForm handleClick={handleClick} />
+      {formType === "login" ? (
+        <LoginForm handleClick={handleClick} />
+      ) : (
+        <RegisterForm handleClick={handleClick} />
+      )}
     </div>
   );
 };
