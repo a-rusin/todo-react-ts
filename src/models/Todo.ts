@@ -1,17 +1,14 @@
+import { CreateAndUpateFormValue } from "./CreateAndUpdate";
+import { SingleSelectOptions } from "./MultiSingleSelectOptions";
+
 export enum TodoPriorety {
   lite = "lite",
   medium = "medium",
   dangerous = "dangerous",
 }
 
-export interface Todo {
+export interface Todo extends CreateAndUpateFormValue {
   id?: string;
   userId: string;
-  title: string;
-  description: string;
   createdDate: string;
-  deadlineDate: string | undefined;
-  priorety: TodoPriorety;
-  favourite: boolean;
-  tags: string[];
 }

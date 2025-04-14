@@ -4,6 +4,10 @@ import { CreateAndUpdateForm } from "../components/CreateUpdateTodoForm/CreateUp
 import { CreateAndUpateFormValue } from "../models/CreateAndUpdate";
 import { useForm } from "../hooks/useForm";
 import { ValidatorConfig } from "../models/ValidatorConfig";
+import { Todo } from "../models/Todo";
+import { nanoid } from "nanoid";
+import { getCreatedDate } from "../utils/getCreatedDate";
+import { todosService } from "../services/todos.service";
 
 const mockDataOptions: SingleSelectOptions[] = [
   { label: "test", value: "test" },
@@ -44,7 +48,16 @@ export const TodoCreatePage = () => {
     });
 
   function onSubmit(data: CreateAndUpateFormValue) {
-    console.log(data);
+    const updatedData: Todo = {
+      id: nanoid(),
+      userId: "000000",
+      createdDate: getCreatedDate(),
+      ...data,
+    };
+
+    const responce = todosService.create(updatedData);
+
+    console.log(responce);
   }
 
   return (

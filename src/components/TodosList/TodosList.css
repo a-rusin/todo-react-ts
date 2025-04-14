@@ -1,0 +1,7 @@
+.todo-list {
+  margin-top: 30rem;
+}
+
+.todo-list > *:not(:first-child) {
+  margin-top: 20rem;
+}

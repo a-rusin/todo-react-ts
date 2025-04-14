@@ -3,6 +3,7 @@ import { CreateAndUpdateForm } from "../components/CreateUpdateTodoForm/CreateUp
 import { useForm } from "../hooks/useForm";
 import { SingleSelectOptions } from "../models/MultiSingleSelectOptions";
 import { CreateAndUpateFormValue } from "../models/CreateAndUpdate";
+import { ValidatorConfig } from "../models/ValidatorConfig";
 
 type RouteParams = {
   id: string;
@@ -22,11 +23,31 @@ const defaultValue: CreateAndUpateFormValue = {
   tags: null,
 };
 
+const validatorConfig: ValidatorConfig = {
+  title: {
+    isRequired: true,
+    email: true,
+  },
+  description: {
+    isRequired: true,
+  },
+  dateDeadline: {
+    isRequired: true,
+  },
+  priorety: {
+    isRequired: true,
+  },
+};
+
 export const TodoEditItemPage = () => {
   const { id } = useParams<RouteParams>();
 
-  const { formValue, handleChange, handleReset, handleSubmit } =
-    useForm<CreateAndUpateFormValue>({ defaultValue, onSubmit });
+  const { formValue, handleChange, handleReset, handleSubmit, errors } =
+    useForm<CreateAndUpateFormValue>({
+      defaultValue,
+      onSubmit,
+      validatorConfig,
+    });
 
   function onSubmit(data: CreateAndUpateFormValue) {
     console.log(data);
@@ -44,6 +65,7 @@ export const TodoEditItemPage = () => {
         handleReset={handleReset}
         handleSubmit={handleSubmit}
         options={mockDataOptions}
+        errors={errors}
       />
     </div>
   );

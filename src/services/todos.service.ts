@@ -1,6 +1,6 @@
 import { httpService } from "./http.service";
 
-const apiEndPoint = "/todo";
+const apiEndPoint = "todos/";
 
 export const todosService = {
   get: async () => {

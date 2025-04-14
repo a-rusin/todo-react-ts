@@ -1,0 +1,34 @@
+import "./TodosListItem.css";
+
+export const TodosListItem = ({}) => {
+  return (
+    <li className="todo-list-item">
+      <div className="todo-item-container">
+        <div className="todo-item-done-btn"></div>
+        <div className="todo-item-main-info">
+          <div className="todo-item-header">
+            <h5 className="todo-item-name">Купить продукты</h5>
+            <div className="todo-item-priorety-label">Срочно</div>
+          </div>
+          <div className="todo-item-details">
+            <p className="todo-item-description">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
+              impedit rerum amet, sit fugit officia facilis rem! Molestias
+              eligendi, id voluptates, sed itaque iste ipsa excepturi est, quasi
+              ea totam?
+            </p>
+            <ul className="todo-item-tags">
+              <li className="todo-item-tag">#Дом</li>
+              <li className="todo-item-tag">#Покупки</li>
+            </ul>
+            <div className="todo-item-deadline">14 февраля, 2025</div>
+          </div>
+        </div>
+        <div className="todo-item-actions-btns">
+          <button className="todo-item-action-btn todo-item-action-btn-edit"></button>
+          <button className="todo-item-action-btn todo-item-action-btn-delete"></button>
+        </div>
+      </div>
+    </li>
+  );
+};
