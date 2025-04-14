@@ -18,6 +18,7 @@ const validatorConfig: ValidatorConfig = {
   },
   email: {
     isRequired: true,
+    email: true,
   },
   password: {
     isRequired: true,
@@ -57,10 +58,10 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
       <InputField
         autoComplete="off"
         id="email"
-        label="Пароль"
+        label="Email"
         name="email"
         onChange={handleChange}
-        type="email"
+        type="text"
         value={formValue.email}
         errors={errors?.email}
         placeholder="Начите печать..."

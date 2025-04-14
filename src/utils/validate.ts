@@ -28,6 +28,13 @@ export const validate = <T>(validatorConfig: ValidatorConfig, formValue: T) => {
             }
             break;
 
+          case ValidatorEnum.email:
+            const emailRegExp = /^\S+@\S+\.\S+$/g;
+            if (!emailRegExp.test(formValue[formKey] as string)) {
+              errorMessage = "Введите корректный Email";
+            }
+            break;
+
           default:
             break;
         }

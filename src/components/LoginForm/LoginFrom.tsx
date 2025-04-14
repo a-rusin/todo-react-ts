@@ -14,7 +14,6 @@ const defaultValue: LoginValue = {
 const validatorConfig: ValidatorConfig = {
   login: {
     isRequired: true,
-    email: true,
   },
   password: {
     isRequired: true,
