@@ -20,7 +20,7 @@ export const TodosList = ({}) => {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading.get ? (
         <div className="todo-status-container">
           <LoaderInline />
         </div>

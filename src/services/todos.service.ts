@@ -12,4 +12,8 @@ export const todosService = {
     const { data } = await httpService.put(apiEndPoint + payload.id, payload);
     return data;
   },
+  delete: async (id: string) => {
+    const { data } = await httpService.delete(apiEndPoint + id);
+    return data;
+  },
 };

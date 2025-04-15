@@ -13,9 +13,17 @@ export interface Todo extends CreateAndUpateFormValue {
   createdDate: string;
 }
 
+export interface TodosContextLoading {
+  get: boolean;
+  create: boolean;
+  update: boolean;
+  delete: false | { id: string };
+}
+
 export type TodosContextType = {
   todos: Todo[];
-  isLoading: boolean;
+  isLoading: TodosContextLoading;
   getTodos: () => void;
   createTodos: (payload: Todo) => void;
+  deleteTodos: (id: string) => void;
 };

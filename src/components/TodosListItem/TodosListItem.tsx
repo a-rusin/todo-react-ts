@@ -3,6 +3,9 @@ import "./TodosListItem.css";
 import { Link } from "react-router-dom";
 import { Todo } from "../../models/Todo";
 import { formatDateString } from "../../utils/formatDateString";
+import { useContext } from "react";
+import { TodosContext } from "../../context/TodosContext";
+import { LoaderInline } from "../LoaderInline/LoaderInline";
 
 export const TodosListItem = ({
   dateDeadline,
@@ -14,8 +17,22 @@ export const TodosListItem = ({
 }: Todo) => {
   const navigate = useNavigate();
 
+  const todosContext = useContext(TodosContext);
+
+  if (!todosContext) {
+    throw new Error("TodoList must be used within a TodoProvider");
+  }
+
+  const { deleteTodos, isLoading: removingLoading } = todosContext;
+
+  const isLoadingId =
+    typeof removingLoading.delete === "boolean" &&
+    removingLoading.delete === false
+      ? false
+      : removingLoading.delete.id;
+
   return (
-    <li className="todo-list-item">
+    <li className={"todo-list-item " + (id === isLoadingId && "removing")}>
       <div className="todo-item-container">
         <div className="todo-item-done-btn"></div>
         <div className="todo-item-main-info">
@@ -45,9 +62,18 @@ export const TodosListItem = ({
         <div className="todo-item-actions-btns">
           <button
             className="todo-item-action-btn todo-item-action-btn-edit"
-            onClick={() => navigate("/todos/edit/123")}
+            onClick={() => navigate("/todos/edit/" + id)}
           ></button>
-          <button className="todo-item-action-btn todo-item-action-btn-delete"></button>
+          <button
+            className={"todo-item-action-btn todo-item-action-btn-delete"}
+            onClick={() => deleteTodos(id!)}
+          >
+            {id === isLoadingId ? (
+              <LoaderInline />
+            ) : (
+              <span className="todo-item-action-btn-delete-icon"></span>
+            )}
+          </button>
         </div>
       </div>
     </li>

@@ -79,7 +79,7 @@ export const TodoCreatePage = () => {
         handleSubmit={handleSubmit}
         options={mockDataOptions}
         errors={errors}
-        isLoading={isLoading}
+        isLoading={isLoading.create}
       />
     </div>
   );
