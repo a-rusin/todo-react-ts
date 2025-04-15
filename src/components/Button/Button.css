@@ -9,17 +9,23 @@
 }
 
 .btn.primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #fff;
   background-color: rgb(51, 153, 255);
-  padding: 18rem 10rem;
+  height: 52rem;
   border-radius: 10rem;
   font-size: 20rem;
 }
 
 .btn.secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: rgb(51, 153, 255);
   border: 1rem solid rgb(51, 153, 255);
-  padding: 18rem 10rem;
+  height: 52rem;
   border-radius: 10rem;
   font-size: 20rem;
 }

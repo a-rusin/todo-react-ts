@@ -12,3 +12,10 @@ export interface Todo extends CreateAndUpateFormValue {
   userId: string;
   createdDate: string;
 }
+
+export type TodosContextType = {
+  todos: Todo[];
+  isLoading: boolean;
+  getTodos: () => void;
+  createTodos: (payload: Todo) => void;
+};

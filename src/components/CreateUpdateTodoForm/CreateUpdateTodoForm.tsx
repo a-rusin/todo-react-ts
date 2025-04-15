@@ -15,6 +15,7 @@ interface CreateAndUpdateFormProps {
   handleReset: () => void;
   options: any;
   errors?: ValidatorResult;
+  isLoading?: boolean;
 }
 
 export const CreateAndUpdateForm = ({
@@ -24,6 +25,7 @@ export const CreateAndUpdateForm = ({
   handleSubmit,
   handleReset,
   errors,
+  isLoading,
 }: CreateAndUpdateFormProps) => {
   return (
     <form className="form-create-update" onSubmit={handleSubmit}>
@@ -82,12 +84,18 @@ export const CreateAndUpdateForm = ({
         errors={errors?.favourite}
       />
       <div className="btns-group">
-        <Button label="Создать" cssType="primary" type="submit" />
+        <Button
+          label="Создать"
+          cssType="primary"
+          type="submit"
+          isLoading={isLoading}
+        />
         <Button
           label="Сбросить"
           cssType="secondary"
           type="reset"
           onClick={handleReset}
+          isLoading={false}
         />
       </div>
     </form>

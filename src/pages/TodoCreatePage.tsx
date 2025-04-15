@@ -7,7 +7,8 @@ import { ValidatorConfig } from "../models/ValidatorConfig";
 import { Todo } from "../models/Todo";
 import { nanoid } from "nanoid";
 import { getCreatedDate } from "../utils/getCreatedDate";
-import { todosService } from "../services/todos.service";
+import { useContext } from "react";
+import { TodosContext } from "../context/TodosContext";
 
 const mockDataOptions: SingleSelectOptions[] = [
   { label: "test", value: "test" },
@@ -26,7 +27,6 @@ const defaultValue: CreateAndUpateFormValue = {
 const validatorConfig: ValidatorConfig = {
   title: {
     isRequired: true,
-    email: true,
   },
   description: {
     isRequired: true,
@@ -40,6 +40,14 @@ const validatorConfig: ValidatorConfig = {
 };
 
 export const TodoCreatePage = () => {
+  const todosContext = useContext(TodosContext);
+
+  if (!todosContext) {
+    throw new Error("TodoList must be used within a TodoProvider");
+  }
+
+  const { createTodos, isLoading } = todosContext;
+
   const { formValue, handleChange, handleReset, handleSubmit, errors } =
     useForm<CreateAndUpateFormValue>({
       defaultValue,
@@ -55,9 +63,7 @@ export const TodoCreatePage = () => {
       ...data,
     };
 
-    const responce = todosService.create(updatedData);
-
-    console.log(responce);
+    createTodos(updatedData);
   }
 
   return (
@@ -73,6 +79,7 @@ export const TodoCreatePage = () => {
         handleSubmit={handleSubmit}
         options={mockDataOptions}
         errors={errors}
+        isLoading={isLoading}
       />
     </div>
   );

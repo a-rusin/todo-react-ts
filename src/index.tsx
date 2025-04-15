@@ -3,6 +3,8 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 
 import "./index.css";
+import { TodosProvider } from "./context/TodosContext";
+import { NavigateContextProvider } from "./hooks/useAppNavigate";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -10,6 +12,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <BrowserRouter>
-    <App />
+    <NavigateContextProvider>
+      <TodosProvider>
+        <App />
+      </TodosProvider>
+    </NavigateContextProvider>
   </BrowserRouter>
 );

@@ -66,6 +66,7 @@ export const TodoEditItemPage = () => {
         handleSubmit={handleSubmit}
         options={mockDataOptions}
         errors={errors}
+        isLoading={false}
       />
     </div>
   );

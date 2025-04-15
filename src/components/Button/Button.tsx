@@ -1,3 +1,4 @@
+import { LoaderInline } from "../LoaderInline/LoaderInline";
 import "./Button.css";
 
 interface ButtonProps {
@@ -6,6 +7,7 @@ interface ButtonProps {
   cssType: "primary" | "secondary";
   type: "button" | "reset" | "submit";
   className?: string;
+  isLoading?: boolean;
 }
 
 export const Button = ({
@@ -14,12 +16,13 @@ export const Button = ({
   cssType,
   type,
   className,
+  isLoading,
 }: ButtonProps) => {
   const classes = "btn " + cssType + (className ? " " + className : "");
 
   return (
     <button onClick={onClick} className={classes} type={type}>
-      {label}
+      {isLoading ? <LoaderInline /> : label}
     </button>
   );
 };

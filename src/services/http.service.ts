@@ -1,4 +1,8 @@
-import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
+import axios, {
+  AxiosError,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
 import configFile from "../config.json";
 
 const http = axios.create({
@@ -13,6 +17,24 @@ http.interceptors.request.use(
         (containSlash ? config.url.slice(0, -1) : config.url) + ".json";
     }
     return config;
+  },
+  (error: AxiosError) => Promise.reject(error)
+);
+
+http.interceptors.response.use(
+  (response: AxiosResponse) => {
+    if (configFile.isFirebase && response.data && !response.data.id) {
+      const oldData: { [key: string]: any } = response.data;
+      let newData = [];
+
+      for (const key in oldData) {
+        newData.push(oldData[key]);
+      }
+
+      response.data = newData;
+    }
+
+    return response;
   },
   (error: AxiosError) => Promise.reject(error)
 );

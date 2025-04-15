@@ -5,3 +5,12 @@
 .todo-list > *:not(:first-child) {
   margin-top: 20rem;
 }
+
+.todo-status-container {
+  text-align: center;
+  margin-top: 30rem;
+  background-color: rgba(35, 40, 46, 0.3);
+  border: 1rem solid rgba(61, 71, 81, 0.3);
+  padding: 24rem;
+  border-radius: 10rem;
+}
