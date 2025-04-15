@@ -1,4 +1,5 @@
 {
   "apiEndPoint": "https://todo-react-ts-app-default-rtdb.firebaseio.com",
-  "isFirebase": true
+  "isFirebase": true,
+  "version": "1.0.0"
 }

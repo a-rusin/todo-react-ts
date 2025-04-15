@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import "./TodosListItem.css";
 
 export const TodosListItem = ({}) => {
+  const navigate = useNavigate();
+
   return (
     <li className="todo-list-item">
       <div className="todo-item-container">
@@ -25,7 +28,10 @@ export const TodosListItem = ({}) => {
           </div>
         </div>
         <div className="todo-item-actions-btns">
-          <button className="todo-item-action-btn todo-item-action-btn-edit"></button>
+          <button
+            className="todo-item-action-btn todo-item-action-btn-edit"
+            onClick={() => navigate("/todos/edit/123")}
+          ></button>
           <button className="todo-item-action-btn todo-item-action-btn-delete"></button>
         </div>
       </div>

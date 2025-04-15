@@ -103,3 +103,16 @@ a {
   cursor: pointer;
   text-decoration: underline;
 }
+
+.main-page-container {
+  margin-top: 30rem;
+  border: 1rem solid rgba(61, 71, 81, 0.3);
+  padding: 24rem;
+  border-radius: 10rem;
+  font-size: 16rem;
+  line-height: 140%;
+}
+
+.main-page-container > *:not(:first-child) {
+  padding-top: 20rem;
+}
