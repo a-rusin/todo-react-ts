@@ -1,0 +1,11 @@
+.todo-comments-form {
+  padding-top: 20rem;
+}
+
+.todo-comments-form > *:not(:first-child) {
+  margin-top: 12rem;
+}
+
+.todo-comments-btn-submit {
+  max-width: 200rem;
+}

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./TodosListItem.css";
+import { Link } from "react-router-dom";
 
 export const TodosListItem = ({}) => {
   const navigate = useNavigate();
@@ -10,7 +11,9 @@ export const TodosListItem = ({}) => {
         <div className="todo-item-done-btn"></div>
         <div className="todo-item-main-info">
           <div className="todo-item-header">
-            <h5 className="todo-item-name">Купить продукты</h5>
+            <Link to={"/todos/" + 123} className="todo-item-name">
+              Купить продукты
+            </Link>
             <div className="todo-item-priorety-label">Срочно</div>
           </div>
           <div className="todo-item-details">

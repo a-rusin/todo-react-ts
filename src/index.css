@@ -65,6 +65,7 @@ a {
   border: 1rem solid rgba(61, 71, 81, 0.3);
   padding: 24rem;
   border-radius: 10rem;
+  background-color: rgba(35, 40, 46, 0.3);
 }
 
 .form-create-update > *:not(:first-child) {
@@ -87,6 +88,7 @@ a {
   border: 1rem solid rgba(61, 71, 81, 0.3);
   padding: 24rem;
   border-radius: 10rem;
+  background-color: rgba(35, 40, 46, 0.3);
 }
 
 .auth-form > *:not(:first-child) {
@@ -111,6 +113,7 @@ a {
   border-radius: 10rem;
   font-size: 16rem;
   line-height: 140%;
+  background-color: rgba(35, 40, 46, 0.3);
 }
 
 .main-page-container > *:not(:first-child) {
