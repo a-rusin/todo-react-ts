@@ -44,10 +44,21 @@
 }
 
 .todo-details-value-priorety {
-  background-color: rgb(202, 9, 9);
   padding: 4rem 6rem;
   border-radius: 4rem;
   letter-spacing: 0.03em;
+}
+
+.todo-details-value-priorety.dangerous {
+  background-color: rgb(202, 9, 9);
+}
+
+.todo-details-value-priorety.medium {
+  background-color: rgb(197, 145, 0);
+}
+
+.todo-details-value-priorety.lite {
+  background-color: rgb(79, 179, 59);
 }
 
 .todo-details-tags-list {
@@ -83,6 +94,21 @@
   gap: 4rem;
 }
 
+.todo-details-btn.proccess {
+  animation: fadeInOutAnimationLoading 0.5s infinite;
+  cursor: not-allowed;
+}
+
+@keyframes fadeInOutAnimationLoading {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
 .todo-details-btn::before {
   content: "";
   width: 20rem;
@@ -104,8 +130,13 @@
   background-color: rgb(197, 145, 0);
 }
 
-.todo-details-btn.todo-details-btn-fav::before {
+.todo-details-btn.todo-details-btn-fav.checked::before {
   background-image: url("../../assets/icons/fav-checked.svg");
+  background-size: 18rem;
+}
+
+.todo-details-btn.todo-details-btn-fav.unchecked::before {
+  background-image: url("../../assets/icons/fav-unchecked.svg");
   background-size: 18rem;
 }
 

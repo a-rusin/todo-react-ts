@@ -27,8 +27,12 @@ export type TodosContextType = {
   todo: Todo | undefined;
   isLoading: TodosContextLoading;
   getTodos: () => void;
-  createUpdateTodos: (payload: Todo, mode?: CreateAndUpateFormType) => void;
-  deleteTodos: (id: string) => void;
+  createUpdateTodos: (
+    payload: Todo,
+    mode?: CreateAndUpateFormType,
+    redirect?: boolean
+  ) => void;
+  deleteTodos: (id: string, redirect?: boolean) => void;
   getTodoById: (id: string) => void;
   resetTodo: () => void;
 };

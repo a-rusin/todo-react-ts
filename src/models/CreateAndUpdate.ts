@@ -10,4 +10,4 @@ export interface CreateAndUpateFormValue {
   tags: SingleSelectOptions[] | null;
 }
 
-export type CreateAndUpateFormType = "create" | "edit";
+export type CreateAndUpateFormType = "create" | "edit" | "edit-item";

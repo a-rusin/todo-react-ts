@@ -60,12 +60,12 @@ export const TodoEditItemPage = () => {
     });
 
   function onSubmit(data: Todo) {
-    createUpdateTodos(data, "edit");
+    createUpdateTodos(data, "edit", true);
   }
 
   return (
     <div className="container">
-      <h1 className="main-title">Редактирование задачи #{id}</h1>
+      <h1 className="main-title">Редактирование задачи</h1>
       <Link to="/todos" className="go-back">
         К списку задач
       </Link>
@@ -82,7 +82,9 @@ export const TodoEditItemPage = () => {
           handleSubmit={handleSubmit}
           options={mockDataOptions}
           errors={errors}
-          isLoading={isLoading.create}
+          isLoading={
+            typeof isLoading.edit === "boolean" ? isLoading.edit : true
+          }
           mode="edit"
         />
       )}

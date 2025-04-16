@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./TodosListItem.css";
 import { Link } from "react-router-dom";
 import { Todo, TodoPriorety } from "../../models/Todo";
@@ -19,6 +19,7 @@ export const TodosListItem = ({
   userId,
 }: Todo) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const todosContext = useContext(TodosContext);
 
@@ -41,15 +42,18 @@ export const TodosListItem = ({
         id,
         favourite: !favourite,
       },
-      "edit"
+      "edit",
+      false
     );
   };
 
   const isLoadingDelete =
-    typeof isLoading.delete === "boolean" ? false : isLoading.delete.id;
+    typeof isLoading.delete === "boolean"
+      ? isLoading.delete
+      : isLoading.delete.id;
 
   const isLoadingFav =
-    typeof isLoading.edit === "boolean" ? false : isLoading.edit.id;
+    typeof isLoading.edit === "boolean" ? isLoading.edit : isLoading.edit.id;
 
   return (
     <li
@@ -76,7 +80,7 @@ export const TodosListItem = ({
               <ul className="todo-item-tags">
                 {tags.map((tag) => (
                   <li key={tag.value} className="todo-item-tag">
-                    {tag.label}
+                    #{tag.label}
                   </li>
                 ))}
               </ul>
@@ -105,7 +109,11 @@ export const TodosListItem = ({
           </button>
           <button
             className="todo-item-action-btn todo-item-action-btn-edit"
-            onClick={() => navigate("/todos/edit/" + id)}
+            onClick={() =>
+              navigate("/todos/edit/" + id, {
+                state: { from: location.pathname },
+              })
+            }
           ></button>
           <button
             className={"todo-item-action-btn todo-item-action-btn-delete"}

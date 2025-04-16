@@ -4,6 +4,7 @@ import { Todo, TodosContextLoading, TodosContextType } from "../models/Todo";
 import { todosService } from "../services/todos.service";
 import { useAppNavigate } from "../hooks/useAppNavigate";
 import { CreateAndUpateFormType } from "../models/CreateAndUpdate";
+import { useLocation } from "react-router-dom";
 
 export const TodosContext = createContext<TodosContextType | undefined>(
   undefined
@@ -24,6 +25,8 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
   });
 
   const appNavigate = useAppNavigate();
+
+  const location = useLocation();
 
   useEffect(() => {
     getTodos();
@@ -55,12 +58,13 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
 
   const createUpdateTodos = async (
     payload: Todo,
-    mode?: CreateAndUpateFormType
+    mode?: CreateAndUpateFormType,
+    redirect?: boolean
   ) => {
     try {
       if (mode && mode === "create") {
         setIsLoading((prev) => ({ ...prev, create: true }));
-      } else if (mode && mode === "edit") {
+      } else if (mode && (mode === "edit" || mode === "edit-item")) {
         setIsLoading((prev) => ({ ...prev, edit: { id: payload.id! } }));
       }
 
@@ -68,31 +72,42 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
 
       if (mode && mode === "create") {
         setTodos((prev) => (prev ? [...prev, data] : [data]));
-      } else if (mode && mode === "edit") {
+      } else if (mode && (mode === "edit" || mode === "edit-item")) {
         setTodos(
           (prev) =>
             prev && prev.map((item) => (item.id === data.id ? data : item))
         );
+
+        if (mode === "edit-item") {
+          setTodo(payload);
+        }
       }
-      appNavigate("/todos");
+
+      if (redirect) {
+        appNavigate(location.state?.from || "/todos");
+      }
     } catch (error) {
       console.log(error);
     } finally {
       if (mode && mode === "create") {
         setIsLoading((prev) => ({ ...prev, create: false }));
-      } else if (mode && mode === "edit") {
+      } else if (mode && (mode === "edit" || mode === "edit-item")) {
         setIsLoading((prev) => ({ ...prev, edit: false }));
       }
     }
   };
 
-  const deleteTodos = async (id: string) => {
+  const deleteTodos = async (id: string, redirect?: boolean) => {
     try {
       setIsLoading((prev) => ({ ...prev, delete: { id: id } }));
 
       const data = await todosService.delete(id);
       if (data === null) {
         setTodos((prev) => prev && prev.filter((todo) => todo.id !== id));
+
+        if (redirect) {
+          appNavigate("/todos");
+        }
       }
     } catch (error) {
       console.log(error);

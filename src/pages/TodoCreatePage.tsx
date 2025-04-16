@@ -63,7 +63,7 @@ export const TodoCreatePage = () => {
       ...data,
     };
 
-    createUpdateTodos(updatedData, "create");
+    createUpdateTodos(updatedData, "create", true);
   }
 
   return (
