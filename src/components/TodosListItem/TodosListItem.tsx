@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./TodosListItem.css";
 import { Link } from "react-router-dom";
-import { Todo } from "../../models/Todo";
+import { Todo, TodoPriorety } from "../../models/Todo";
 import { formatDateString } from "../../utils/formatDateString";
 import { useContext } from "react";
 import { TodosContext } from "../../context/TodosContext";
@@ -32,7 +32,13 @@ export const TodosListItem = ({
       : removingLoading.delete.id;
 
   return (
-    <li className={"todo-list-item " + (id === isLoadingId && "removing")}>
+    <li
+      className={
+        "todo-list-item " +
+        (id === isLoadingId && " removing ") +
+        (priorety?.value === TodoPriorety.dangerous && " dangerous-priorety ")
+      }
+    >
       <div className="todo-item-container">
         <div className="todo-item-done-btn"></div>
         <div className="todo-item-main-info">
@@ -40,7 +46,9 @@ export const TodosListItem = ({
             <Link to={"/todos/" + id} className="todo-item-name">
               {title}
             </Link>
-            <div className="todo-item-priorety-label">Срочно</div>
+            {priorety?.value === TodoPriorety.dangerous && (
+              <div className="todo-item-priorety-label">Срочно</div>
+            )}
           </div>
           <div className="todo-item-details">
             <p className="todo-item-description">{description}</p>

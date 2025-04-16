@@ -1,3 +1,4 @@
+import { prioretyArray } from "../../constans/prioretyObj";
 import {
   CreateAndUpateFormType,
   CreateAndUpateFormValue,
@@ -66,7 +67,7 @@ export const CreateAndUpdateForm = ({
       <SingleSelectField
         label="Приоретет"
         name="priorety"
-        options={options}
+        options={prioretyArray}
         value={formValue?.priorety}
         onChange={handleChange}
         placeholder="Выберите приоретет..."

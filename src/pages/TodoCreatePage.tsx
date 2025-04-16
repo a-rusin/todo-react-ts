@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom";
 import { SingleSelectOptions } from "../models/MultiSingleSelectOptions";
 import { CreateAndUpdateForm } from "../components/CreateUpdateTodoForm/CreateUpdateTodoForm";
-import {
-  CreateAndUpateFormType,
-  CreateAndUpateFormValue,
-} from "../models/CreateAndUpdate";
+import { CreateAndUpateFormValue } from "../models/CreateAndUpdate";
 import { useForm } from "../hooks/useForm";
 import { ValidatorConfig } from "../models/ValidatorConfig";
 import { Todo } from "../models/Todo";

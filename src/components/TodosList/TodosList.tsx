@@ -1,6 +1,6 @@
 import "./TodosList.css";
 import { TodosListItem } from "../TodosListItem/TodosListItem";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { TodosContext } from "../../context/TodosContext";
 import { LoaderInline } from "../LoaderInline/LoaderInline";
 

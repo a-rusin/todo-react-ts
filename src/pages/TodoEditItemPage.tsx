@@ -2,7 +2,6 @@ import { Link, useParams } from "react-router-dom";
 import { CreateAndUpdateForm } from "../components/CreateUpdateTodoForm/CreateUpdateTodoForm";
 import { useForm } from "../hooks/useForm";
 import { SingleSelectOptions } from "../models/MultiSingleSelectOptions";
-import { CreateAndUpateFormValue } from "../models/CreateAndUpdate";
 import { ValidatorConfig } from "../models/ValidatorConfig";
 import { useContext, useEffect } from "react";
 import { TodosContext } from "../context/TodosContext";
@@ -17,15 +16,6 @@ const mockDataOptions: SingleSelectOptions[] = [
   { label: "test", value: "test" },
   { label: "test2", value: "test2" },
 ];
-
-const defaultValue: CreateAndUpateFormValue = {
-  title: "",
-  description: "",
-  dateDeadline: "",
-  priorety: null,
-  favourite: false,
-  tags: null,
-};
 
 const validatorConfig: ValidatorConfig = {
   title: {
@@ -49,7 +39,8 @@ export const TodoEditItemPage = () => {
     throw new Error("TodoList must be used within a TodoProvider");
   }
 
-  const { getTodoById, isLoading, todo, createUpdateTodos } = todosContext;
+  const { getTodoById, isLoading, todo, createUpdateTodos, resetTodo } =
+    todosContext;
 
   const { id } = useParams<RouteParams>();
 
@@ -57,7 +48,9 @@ export const TodoEditItemPage = () => {
     if (id) {
       getTodoById(id);
     }
-  }, []);
+
+    return () => resetTodo();
+  }, [id]);
 
   const { formValue, handleChange, handleReset, handleSubmit, errors } =
     useForm<Todo>({

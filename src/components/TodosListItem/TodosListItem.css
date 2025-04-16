@@ -10,6 +10,10 @@
   pointer-events: none;
 }
 
+.todo-list-item.dangerous-priorety {
+  border: 1rem solid rgb(202, 9, 9);
+}
+
 .todo-item-container {
   display: flex;
   align-items: flex-start;

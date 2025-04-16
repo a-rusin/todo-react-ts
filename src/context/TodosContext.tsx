@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { createContext } from "react";
 import { Todo, TodosContextLoading, TodosContextType } from "../models/Todo";
 import { todosService } from "../services/todos.service";
@@ -91,6 +91,10 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
     }
   };
 
+  const resetTodo = () => {
+    setTodo(undefined);
+  };
+
   return (
     <TodosContext.Provider
       value={{
@@ -101,6 +105,7 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
         createUpdateTodos,
         deleteTodos,
         getTodoById,
+        resetTodo,
       }}
     >
       {children}
