@@ -13,7 +13,10 @@ export const todosService = {
     return data;
   },
   createAndUpdate: async <T>(payload: Todo) => {
-    const { data } = await httpService.put(apiEndPoint + payload.id, payload);
+    const { data } = await httpService.put<T>(
+      apiEndPoint + payload.id,
+      payload
+    );
     return data;
   },
   delete: async (id: string) => {

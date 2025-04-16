@@ -24,7 +24,7 @@ export interface TodosContextLoading {
 }
 
 export type TodosContextType = {
-  todos: Todo[];
+  todos: Todo[] | undefined;
   todo: Todo | undefined;
   isLoading: TodosContextLoading;
   getTodos: () => void;

@@ -13,23 +13,21 @@ export const TodosList = ({}) => {
 
   const { todos, isLoading } = todosContext;
 
-  // useEffect(() => {
-  //   getTodos();
-  // }, []);
-
-  return (
-    <>
-      {isLoading.get ? (
-        <div className="todo-status-container">
-          <LoaderInline />
-        </div>
-      ) : (
-        <ul className="todo-list">
-          {todos.map((todo) => (
-            <TodosListItem key={todo.id} {...todo} />
-          ))}
-        </ul>
-      )}
-    </>
-  );
+  if (isLoading.get) {
+    return (
+      <div className="todo-status-container">
+        <LoaderInline />
+      </div>
+    );
+  } else if (Array.isArray(todos) && todos.length !== 0) {
+    return (
+      <ul className="todo-list">
+        {todos.map((todo) => (
+          <TodosListItem key={todo.id} {...todo} />
+        ))}
+      </ul>
+    );
+  } else {
+    return <div className="todo-status-container">Список задач пока пуст</div>;
+  }
 };

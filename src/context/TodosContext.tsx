@@ -14,8 +14,8 @@ interface TodosProviderProps {
 }
 
 export const TodosProvider = ({ children }: TodosProviderProps) => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [todo, setTodo] = useState<Todo>();
+  const [todos, setTodos] = useState<Todo[] | undefined>([]);
+  const [todo, setTodo] = useState<Todo | undefined>();
   const [isLoading, setIsLoading] = useState<TodosContextLoading>({
     create: false,
     delete: false,
@@ -61,10 +61,11 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
       setIsLoading((prev) => ({ ...prev, create: true }));
       const data = await todosService.createAndUpdate<Todo>(payload);
       if (mode && mode === "create") {
-        setTodos((prev) => [...prev, data]);
+        setTodos((prev) => (prev ? [...prev, data] : [data]));
       } else if (mode && mode === "edit") {
-        setTodos((prev) =>
-          prev.map((item) => (item.id === data.id ? data : item))
+        setTodos(
+          (prev) =>
+            prev && prev.map((item) => (item.id === data.id ? data : item))
         );
       }
       appNavigate("/todos");
@@ -81,7 +82,7 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
 
       const data = await todosService.delete(id);
       if (data === null) {
-        setTodos((prev) => prev.filter((todo) => todo.id !== id));
+        setTodos((prev) => prev && prev.filter((todo) => todo.id !== id));
       }
     } catch (error) {
       console.log(error);
