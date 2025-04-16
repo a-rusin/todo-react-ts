@@ -52,12 +52,16 @@ a {
   line-height: 120%;
 }
 
-.go-back {
+.main-url {
   color: var(--secondary-color);
   font-size: 18rem;
   line-height: 110%;
-  margin-top: 14rem;
   display: inline-block;
+  cursor: pointer;
+}
+
+.main-url-spacing {
+  margin-top: 14rem;
 }
 
 .form-create-update {
@@ -118,4 +122,9 @@ a {
 
 .main-page-container > *:not(:first-child) {
   padding-top: 20rem;
+}
+
+.page-header {
+  display: flex;
+  gap: 10rem;
 }

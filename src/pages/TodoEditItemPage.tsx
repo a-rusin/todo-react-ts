@@ -66,7 +66,7 @@ export const TodoEditItemPage = () => {
   return (
     <div className="container">
       <h1 className="main-title">Редактирование задачи</h1>
-      <Link to="/todos" className="go-back">
+      <Link to="/todos" className="main-url main-url-spacing">
         К списку задач
       </Link>
       {isLoading.get && (

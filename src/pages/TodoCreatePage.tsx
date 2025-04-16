@@ -69,7 +69,7 @@ export const TodoCreatePage = () => {
   return (
     <div className="container">
       <h1 className="main-title">Создание новой задачи</h1>
-      <Link to="/todos" className="go-back">
+      <Link to="/todos" className="main-url main-url-spacing">
         К списку задач
       </Link>
       <CreateAndUpdateForm
