@@ -51,7 +51,7 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
         name="login"
         onChange={handleChange}
         type="text"
-        value={formValue.login}
+        value={formValue?.login}
         errors={errors?.login}
         placeholder="Начите печать..."
       />
@@ -62,7 +62,7 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
         name="email"
         onChange={handleChange}
         type="text"
-        value={formValue.email}
+        value={formValue?.email}
         errors={errors?.email}
         placeholder="Начите печать..."
       />
@@ -73,7 +73,7 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
         name="password"
         onChange={handleChange}
         type="password"
-        value={formValue.password}
+        value={formValue?.password}
         errors={errors?.password}
         placeholder="Начите печать..."
       />

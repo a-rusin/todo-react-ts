@@ -1,8 +1,9 @@
-import { ReactNode, useContext, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import { Todo, TodosContextLoading, TodosContextType } from "../models/Todo";
 import { todosService } from "../services/todos.service";
 import { useAppNavigate } from "../hooks/useAppNavigate";
+import { CreateAndUpateFormType } from "../models/CreateAndUpdate";
 
 export const TodosContext = createContext<TodosContextType | undefined>(
   undefined
@@ -14,14 +15,19 @@ interface TodosProviderProps {
 
 export const TodosProvider = ({ children }: TodosProviderProps) => {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [todo, setTodo] = useState<Todo>();
   const [isLoading, setIsLoading] = useState<TodosContextLoading>({
     create: false,
-    delete: { id: "2Zgfg7ArzXONkEmZffEsr" },
+    delete: false,
     update: false,
     get: false,
   });
 
   const appNavigate = useAppNavigate();
+
+  useEffect(() => {
+    getTodos();
+  }, []);
 
   const getTodos = async () => {
     try {
@@ -35,12 +41,32 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
     }
   };
 
-  const createTodos = async (payload: Todo) => {
+  const getTodoById = async (id: string) => {
+    try {
+      setIsLoading((prev) => ({ ...prev, get: true }));
+      const data = await todosService.getById<Todo>(id);
+      setTodo(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading((prev) => ({ ...prev, get: false }));
+    }
+  };
+
+  const createUpdateTodos = async (
+    payload: Todo,
+    mode?: CreateAndUpateFormType
+  ) => {
     try {
       setIsLoading((prev) => ({ ...prev, create: true }));
-
-      const data = await todosService.create(payload);
-      console.log(data);
+      const data = await todosService.createAndUpdate<Todo>(payload);
+      if (mode && mode === "create") {
+        setTodos((prev) => [...prev, data]);
+      } else if (mode && mode === "edit") {
+        setTodos((prev) =>
+          prev.map((item) => (item.id === data.id ? data : item))
+        );
+      }
       appNavigate("/todos");
     } catch (error) {
       console.log(error);
@@ -66,7 +92,15 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
 
   return (
     <TodosContext.Provider
-      value={{ todos, isLoading, getTodos, createTodos, deleteTodos }}
+      value={{
+        todos,
+        todo,
+        isLoading,
+        getTodos,
+        createUpdateTodos,
+        deleteTodos,
+        getTodoById,
+      }}
     >
       {children}
     </TodosContext.Provider>

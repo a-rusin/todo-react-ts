@@ -1,4 +1,7 @@
-import { CreateAndUpateFormValue } from "./CreateAndUpdate";
+import {
+  CreateAndUpateFormType,
+  CreateAndUpateFormValue,
+} from "./CreateAndUpdate";
 import { SingleSelectOptions } from "./MultiSingleSelectOptions";
 
 export enum TodoPriorety {
@@ -22,8 +25,10 @@ export interface TodosContextLoading {
 
 export type TodosContextType = {
   todos: Todo[];
+  todo: Todo | undefined;
   isLoading: TodosContextLoading;
   getTodos: () => void;
-  createTodos: (payload: Todo) => void;
+  createUpdateTodos: (payload: Todo, mode?: CreateAndUpateFormType) => void;
   deleteTodos: (id: string) => void;
+  getTodoById: (id: string) => void;
 };

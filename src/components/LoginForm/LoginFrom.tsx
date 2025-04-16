@@ -47,7 +47,7 @@ export const LoginForm = ({ handleClick }: LoginFormProps) => {
         name="login"
         onChange={handleChange}
         type="text"
-        value={formValue.login}
+        value={formValue?.login}
         errors={errors?.login}
         placeholder="Начите печать..."
       />
@@ -58,7 +58,7 @@ export const LoginForm = ({ handleClick }: LoginFormProps) => {
         name="password"
         onChange={handleChange}
         type="password"
-        value={formValue.password}
+        value={formValue?.password}
         errors={errors?.password}
         placeholder="Начите печать..."
       />

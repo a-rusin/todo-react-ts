@@ -8,7 +8,11 @@ export const todosService = {
     const { data } = await httpService.get<T>(apiEndPoint);
     return data;
   },
-  create: async (payload: Todo) => {
+  getById: async <T>(id: string) => {
+    const { data } = await httpService.get<T>(apiEndPoint + id);
+    return data;
+  },
+  createAndUpdate: async <T>(payload: Todo) => {
     const { data } = await httpService.put(apiEndPoint + payload.id, payload);
     return data;
   },

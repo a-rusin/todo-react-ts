@@ -4,7 +4,7 @@ import "./TextAreaField.css";
 interface TextAreaFieldProps {
   label?: string;
   id: string;
-  value: string;
+  value: string | undefined;
   onChange: ({ name, value }: { name: string; value: string }) => void;
   placeholder?: string;
   name: string;

@@ -5,7 +5,7 @@ interface InputFieldProps {
   label: string;
   id: string;
   type: string;
-  value: string;
+  value: string | undefined;
   onChange: ({ name, value }: { name: string; value: string }) => void;
   placeholder?: string;
   name: string;
@@ -36,7 +36,7 @@ export const InputField = ({
       <input
         type={type}
         id={id}
-        value={value}
+        value={value || ""}
         onChange={handleChange}
         className="input-field"
         placeholder={placeholder}

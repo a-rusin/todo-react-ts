@@ -7,7 +7,7 @@ import { useState } from "react";
 interface SingleSelectFieldProps {
   label: string;
   name: string;
-  value: SingleSelectOptions | null;
+  value: SingleSelectOptions | null | undefined;
   onChange: ({
     name,
     value,

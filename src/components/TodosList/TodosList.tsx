@@ -2,7 +2,6 @@ import "./TodosList.css";
 import { TodosListItem } from "../TodosListItem/TodosListItem";
 import { useContext, useEffect } from "react";
 import { TodosContext } from "../../context/TodosContext";
-import { Loader } from "../Loader/Loader";
 import { LoaderInline } from "../LoaderInline/LoaderInline";
 
 export const TodosList = ({}) => {
@@ -12,11 +11,11 @@ export const TodosList = ({}) => {
     throw new Error("TodoList must be used within a TodoProvider");
   }
 
-  const { getTodos, todos, isLoading } = todosContext;
+  const { todos, isLoading } = todosContext;
 
-  useEffect(() => {
-    getTodos();
-  }, []);
+  // useEffect(() => {
+  //   getTodos();
+  // }, []);
 
   return (
     <>

@@ -36,7 +36,7 @@ export const TodoItemCommentsForm = () => {
         id="comment"
         name="comment"
         onChange={handleChange}
-        value={formValue.comment}
+        value={formValue?.comment}
         errors={errors?.comment}
         placeholder="Начните печатать..."
         height="100rem"

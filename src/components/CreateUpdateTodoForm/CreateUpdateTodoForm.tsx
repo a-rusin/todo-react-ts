@@ -1,4 +1,8 @@
-import { CreateAndUpateFormValue } from "../../models/CreateAndUpdate";
+import {
+  CreateAndUpateFormType,
+  CreateAndUpateFormValue,
+} from "../../models/CreateAndUpdate";
+import { Todo } from "../../models/Todo";
 import { ValidatorResult } from "../../models/ValidatorConfig";
 import { Button } from "../Button/Button";
 import { CheckBoxFiled } from "../CheckBoxField/CheckBoxField";
@@ -9,13 +13,14 @@ import { SingleSelectField } from "../SingleSelectField/SingleSelectField";
 import { TextAreaField } from "../TextAreaField/TextAreaField";
 
 interface CreateAndUpdateFormProps {
-  formValue: CreateAndUpateFormValue;
+  formValue: CreateAndUpateFormValue | Todo | undefined;
   handleChange: any;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleReset: () => void;
   options: any;
   errors?: ValidatorResult;
   isLoading?: boolean;
+  mode: CreateAndUpateFormType;
 }
 
 export const CreateAndUpdateForm = ({
@@ -26,13 +31,14 @@ export const CreateAndUpdateForm = ({
   handleReset,
   errors,
   isLoading,
+  mode,
 }: CreateAndUpdateFormProps) => {
   return (
     <form className="form-create-update" onSubmit={handleSubmit}>
       <InputField
         id="title"
         label="Название"
-        value={formValue.title}
+        value={formValue?.title}
         onChange={handleChange}
         type="text"
         name="title"
@@ -43,7 +49,7 @@ export const CreateAndUpdateForm = ({
       <TextAreaField
         id="description"
         label="Описание"
-        value={formValue.description}
+        value={formValue?.description}
         onChange={handleChange}
         name="description"
         placeholder="Начините печатать..."
@@ -53,7 +59,7 @@ export const CreateAndUpdateForm = ({
         id="date-deadline"
         label="Дедлайн"
         name="dateDeadline"
-        value={formValue.dateDeadline}
+        value={formValue?.dateDeadline}
         onChange={handleChange}
         errors={errors?.dateDeadline}
       />
@@ -61,7 +67,7 @@ export const CreateAndUpdateForm = ({
         label="Приоретет"
         name="priorety"
         options={options}
-        value={formValue.priorety}
+        value={formValue?.priorety}
         onChange={handleChange}
         placeholder="Выберите приоретет..."
         errors={errors?.priorety}
@@ -69,14 +75,14 @@ export const CreateAndUpdateForm = ({
       <MultiSelectField
         label="Теги"
         onChange={handleChange}
-        value={formValue.tags}
+        value={formValue?.tags}
         name="tags"
         options={options}
         placeholder="Выберите теги..."
         errors={errors?.tags}
       />
       <CheckBoxFiled
-        checked={formValue.favourite}
+        checked={formValue?.favourite}
         id="favourite"
         label="Добавить задачу в избранное"
         name="favourite"
@@ -85,7 +91,7 @@ export const CreateAndUpdateForm = ({
       />
       <div className="btns-group">
         <Button
-          label="Создать"
+          label={mode === "create" ? "Создать" : "Сохранить"}
           cssType="primary"
           type="submit"
           isLoading={isLoading}

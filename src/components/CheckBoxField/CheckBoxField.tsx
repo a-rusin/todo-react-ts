@@ -5,7 +5,7 @@ interface CheckBoxFiledProps {
   id: string;
   onChange: ({ name, value }: { name: string; value: boolean }) => void;
   name: string;
-  checked: boolean;
+  checked: boolean | undefined;
   errors?: string[];
 }
 
@@ -27,7 +27,7 @@ export const CheckBoxFiled = ({
         type="checkbox"
         id={id}
         name={name}
-        checked={checked}
+        checked={checked || false}
         onChange={handleChange}
         className="checkbox-field"
       />

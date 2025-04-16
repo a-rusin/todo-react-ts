@@ -8,3 +8,5 @@ export interface CreateAndUpateFormValue {
   favourite: boolean;
   tags: SingleSelectOptions[] | null;
 }
+
+export type CreateAndUpateFormType = "create" | "edit";

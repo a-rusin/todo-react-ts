@@ -4,7 +4,7 @@ interface DatePickerFieldProps {
   label: string;
   id: string;
   name: string;
-  value: string;
+  value: string | undefined;
   onChange: ({ name, value }: { name: string; value: string }) => void;
   errors?: string[];
 }
@@ -32,7 +32,7 @@ export const DatePickerField = ({
         name={name}
         className="datepicker-field"
         onChange={handleChange}
-        value={value}
+        value={value || ""}
       />
       {errors && (
         <ul className="error-message-input-list">

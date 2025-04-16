@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { SingleSelectOptions } from "../models/MultiSingleSelectOptions";
 import { CreateAndUpdateForm } from "../components/CreateUpdateTodoForm/CreateUpdateTodoForm";
-import { CreateAndUpateFormValue } from "../models/CreateAndUpdate";
+import {
+  CreateAndUpateFormType,
+  CreateAndUpateFormValue,
+} from "../models/CreateAndUpdate";
 import { useForm } from "../hooks/useForm";
 import { ValidatorConfig } from "../models/ValidatorConfig";
 import { Todo } from "../models/Todo";
@@ -46,7 +49,7 @@ export const TodoCreatePage = () => {
     throw new Error("TodoList must be used within a TodoProvider");
   }
 
-  const { createTodos, isLoading } = todosContext;
+  const { createUpdateTodos, isLoading } = todosContext;
 
   const { formValue, handleChange, handleReset, handleSubmit, errors } =
     useForm<CreateAndUpateFormValue>({
@@ -63,7 +66,7 @@ export const TodoCreatePage = () => {
       ...data,
     };
 
-    createTodos(updatedData);
+    createUpdateTodos(updatedData, "create");
   }
 
   return (
@@ -80,6 +83,7 @@ export const TodoCreatePage = () => {
         options={mockDataOptions}
         errors={errors}
         isLoading={isLoading.create}
+        mode="create"
       />
     </div>
   );
