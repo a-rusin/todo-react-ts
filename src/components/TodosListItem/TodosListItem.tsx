@@ -14,6 +14,9 @@ export const TodosListItem = ({
   tags,
   title,
   id,
+  favourite,
+  createdDate,
+  userId,
 }: Todo) => {
   const navigate = useNavigate();
 
@@ -23,19 +26,36 @@ export const TodosListItem = ({
     throw new Error("TodoList must be used within a TodoProvider");
   }
 
-  const { deleteTodos, isLoading: removingLoading } = todosContext;
+  const { deleteTodos, isLoading, createUpdateTodos } = todosContext;
 
-  const isLoadingId =
-    typeof removingLoading.delete === "boolean" &&
-    removingLoading.delete === false
-      ? false
-      : removingLoading.delete.id;
+  const handleClickFavorite = () => {
+    createUpdateTodos(
+      {
+        createdDate,
+        dateDeadline,
+        description,
+        priorety,
+        tags,
+        title,
+        userId,
+        id,
+        favourite: !favourite,
+      },
+      "edit"
+    );
+  };
+
+  const isLoadingDelete =
+    typeof isLoading.delete === "boolean" ? false : isLoading.delete.id;
+
+  const isLoadingFav =
+    typeof isLoading.edit === "boolean" ? false : isLoading.edit.id;
 
   return (
     <li
       className={
         "todo-list-item " +
-        (id === isLoadingId && " removing ") +
+        (id === isLoadingDelete && " removing ") +
         (priorety?.value === TodoPriorety.dangerous && " dangerous-priorety ")
       }
     >
@@ -69,6 +89,21 @@ export const TodosListItem = ({
         </div>
         <div className="todo-item-actions-btns">
           <button
+            className="todo-item-action-btn todo-item-action-btn-fav"
+            onClick={handleClickFavorite}
+          >
+            {id === isLoadingFav ? (
+              <LoaderInline />
+            ) : (
+              <span
+                className={
+                  "todo-item-action-btn-fav-icon " +
+                  (favourite ? "checked" : "unchecked")
+                }
+              ></span>
+            )}
+          </button>
+          <button
             className="todo-item-action-btn todo-item-action-btn-edit"
             onClick={() => navigate("/todos/edit/" + id)}
           ></button>
@@ -76,7 +111,7 @@ export const TodosListItem = ({
             className={"todo-item-action-btn todo-item-action-btn-delete"}
             onClick={() => deleteTodos(id!)}
           >
-            {id === isLoadingId ? (
+            {id === isLoadingDelete ? (
               <LoaderInline />
             ) : (
               <span className="todo-item-action-btn-delete-icon"></span>

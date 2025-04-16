@@ -7,6 +7,9 @@ export const TodoItemDetails = () => {
         <button className="todo-details-btn todo-details-btn-done">
           Выполнено
         </button>
+        <button className="todo-details-btn todo-details-btn-fav">
+          Добавить в избранное
+        </button>
         <button className="todo-details-btn todo-details-btn-edit">
           Изменить задачу
         </button>

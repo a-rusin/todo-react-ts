@@ -19,7 +19,7 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
   const [isLoading, setIsLoading] = useState<TodosContextLoading>({
     create: false,
     delete: false,
-    update: false,
+    edit: false,
     get: false,
   });
 
@@ -58,8 +58,14 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
     mode?: CreateAndUpateFormType
   ) => {
     try {
-      setIsLoading((prev) => ({ ...prev, create: true }));
+      if (mode && mode === "create") {
+        setIsLoading((prev) => ({ ...prev, create: true }));
+      } else if (mode && mode === "edit") {
+        setIsLoading((prev) => ({ ...prev, edit: { id: payload.id! } }));
+      }
+
       const data = await todosService.createAndUpdate<Todo>(payload);
+
       if (mode && mode === "create") {
         setTodos((prev) => (prev ? [...prev, data] : [data]));
       } else if (mode && mode === "edit") {
@@ -72,7 +78,11 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading((prev) => ({ ...prev, create: false }));
+      if (mode && mode === "create") {
+        setIsLoading((prev) => ({ ...prev, create: false }));
+      } else if (mode && mode === "edit") {
+        setIsLoading((prev) => ({ ...prev, edit: false }));
+      }
     }
   };
 

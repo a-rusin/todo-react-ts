@@ -18,7 +18,7 @@ export interface Todo extends CreateAndUpateFormValue {
 export interface TodosContextLoading {
   get: boolean;
   create: boolean;
-  update: boolean;
+  edit: false | { id: string };
   delete: false | { id: string };
 }
 
