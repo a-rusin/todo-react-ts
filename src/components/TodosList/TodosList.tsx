@@ -13,7 +13,7 @@ export const TodosList = ({}) => {
 
   const { todos, isLoading } = todosContext;
 
-  if (isLoading.get) {
+  if (isLoading.getItems) {
     return (
       <div className="todo-status-container">
         <LoaderInline />
@@ -23,7 +23,7 @@ export const TodosList = ({}) => {
     return (
       <ul className="todo-list">
         {todos.map((todo) => (
-          <TodosListItem key={todo.id} {...todo} />
+          <TodosListItem key={todo.id} todo={todo} />
         ))}
       </ul>
     );

@@ -4,80 +4,68 @@ import { Todo, TodoPriorety, TodosContextLoading } from "../../models/Todo";
 import { formatDateString } from "../../utils/formatDateString";
 import "./TodoItemDetails.css";
 import { CreateAndUpateFormType } from "../../models/CreateAndUpdate";
+import { isLoadingTodoValue } from "../../utils/isLoadingTodoValue";
 
-interface TodoItemDetailsProps extends Todo {
+interface TodoItemDetailsProps {
+  todo: Todo;
   deleteTodos: (id: string, redirect?: boolean) => void;
   isLoading: TodosContextLoading;
   createUpdateTodos: (
     payload: Todo,
+    loadingType: keyof TodosContextLoading,
     mode?: CreateAndUpateFormType,
     redirect?: boolean
   ) => void;
 }
 
 export const TodoItemDetails = ({
-  createdDate,
-  dateDeadline,
-  description,
-  favourite,
-  priorety,
-  tags,
-  title,
-  id,
+  todo,
+  createUpdateTodos,
   deleteTodos,
   isLoading,
-  userId,
-  createUpdateTodos,
 }: TodoItemDetailsProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isLoadingDelete =
-    typeof isLoading.delete === "boolean"
-      ? isLoading.delete
-      : isLoading.delete.id;
+  const isLoadingDelete = isLoadingTodoValue(isLoading.deleteItem);
 
-  const isLoadingFav =
-    typeof isLoading.edit === "boolean" ? isLoading.edit : isLoading.edit.id;
+  const isLoadingFav = isLoadingTodoValue(isLoading.favouriteItem);
+  const isLoadingIsDone = isLoadingTodoValue(isLoading.isDoneItem);
 
-  const handleClickFavorite = () => {
+  const handleClickEditTodoState = (prop: "isDone" | "favourite") => {
+    const loadingType = `${prop}Item` as keyof TodosContextLoading;
+
     createUpdateTodos(
-      {
-        createdDate,
-        dateDeadline,
-        description,
-        priorety,
-        tags,
-        title,
-        userId,
-        id,
-        favourite: !favourite,
-      },
+      { ...todo, [prop]: !todo[prop] },
+      loadingType,
       "edit-item",
       false
     );
   };
 
   return (
-    <div className="todo-details-container">
+    <div className={"todo-details-container " + (todo.isDone && "done")}>
       <div className="todo-details-btns">
-        <button className="todo-details-btn todo-details-btn-done">
-          Выполнено
+        <button
+          className="todo-details-btn todo-details-btn-done"
+          onClick={() => handleClickEditTodoState("isDone")}
+        >
+          {todo.isDone ? "Не выполнено" : "Выполнено"}
         </button>
         <button
           className={
             "todo-details-btn todo-details-btn-fav " +
-            (id === isLoadingFav && " proccess") +
-            (favourite ? " checked" : " unchecked")
+            (todo.id === isLoadingFav && " proccess") +
+            (todo.favourite ? " checked" : " unchecked")
           }
-          onClick={handleClickFavorite}
+          onClick={() => handleClickEditTodoState("favourite")}
         >
-          {favourite ? "Удалить из избранного" : "Добавить в избранное"}
+          {todo.favourite ? "Удалить из избранного" : "Добавить в избранное"}
         </button>
         <button
           className="todo-details-btn todo-details-btn-edit"
           onClick={() =>
-            navigate("/todos/edit/" + id, {
+            navigate("/todos/edit/" + todo.id, {
               state: { from: location.pathname },
             })
           }
@@ -87,43 +75,45 @@ export const TodoItemDetails = ({
         <button
           className={
             "todo-details-btn todo-details-btn-remove " +
-            (id === isLoadingDelete && " proccess")
+            (todo.id === isLoadingDelete && " proccess")
           }
-          onClick={() => deleteTodos(id!, true)}
+          onClick={() => deleteTodos(todo.id!, true)}
         >
           Удалить задачу
         </button>
       </div>
-      <h5 className="todo-details-title">{title}</h5>
-      <p className="todo-details-description">{description}</p>
+      <h5 className="todo-details-title">{todo.title}</h5>
+      <p className="todo-details-description">{todo.description}</p>
       <ul className="todo-details-list">
         <li className="todo-details-list-item">
           <div className="todo-details-label">ID задачи:</div>
-          <div className="todo-details-value ">{id}</div>
+          <div className="todo-details-value ">{todo.id}</div>
         </li>
         <li className="todo-details-list-item">
           <div className="todo-details-label">Приоретет:</div>
-          <div className={"todo-details-value-priorety " + priorety?.value}>
-            {priorety?.label}
+          <div
+            className={"todo-details-value-priorety " + todo.priorety?.value}
+          >
+            {todo.priorety?.label}
           </div>
         </li>
         <li className="todo-details-list-item">
           <div className="todo-details-label">Дедлайн:</div>
           <div className="todo-details-value">
-            {formatDateString(dateDeadline)}
+            {formatDateString(todo.dateDeadline)}
           </div>
         </li>
         <li className="todo-details-list-item">
           <div className="todo-details-label">Дата создания:</div>
           <div className="todo-details-value">
-            {formatDateString(createdDate)}
+            {formatDateString(todo.createdDate)}
           </div>
         </li>
         <li className="todo-details-list-item">
           <div className="todo-details-label">Теги:</div>
-          {tags && (
+          {todo.tags && (
             <ul className="todo-details-tags-list">
-              {tags.map((tag) => (
+              {todo.tags.map((tag) => (
                 <li key={tag.value} className="todo-details-tags-list-item">
                   #{tag.label}
                 </li>

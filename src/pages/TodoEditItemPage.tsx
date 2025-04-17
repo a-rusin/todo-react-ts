@@ -60,7 +60,7 @@ export const TodoEditItemPage = () => {
     });
 
   function onSubmit(data: Todo) {
-    createUpdateTodos(data, "edit", true);
+    createUpdateTodos(data, "editForm", "edit", true);
   }
 
   return (
@@ -69,12 +69,12 @@ export const TodoEditItemPage = () => {
       <Link to="/todos" className="main-url main-url-spacing">
         К списку задач
       </Link>
-      {isLoading.get && (
+      {isLoading.getItem && (
         <div className="todo-status-container">
           <LoaderInline />
         </div>
       )}
-      {!isLoading.get && todo && (
+      {!isLoading.getItem && todo && (
         <CreateAndUpdateForm
           formValue={formValue}
           handleChange={handleChange}
@@ -83,7 +83,7 @@ export const TodoEditItemPage = () => {
           options={mockDataOptions}
           errors={errors}
           isLoading={
-            typeof isLoading.edit === "boolean" ? isLoading.edit : true
+            typeof isLoading.editForm === "boolean" ? isLoading.editForm : true
           }
           mode="edit"
         />

@@ -41,15 +41,15 @@ export const TodoItemPage = () => {
       <Link to="/todos" className="main-url main-url-spacing">
         К списку задач
       </Link>
-      {isLoading.get && (
+      {isLoading.getItem && (
         <div className="todo-status-container">
           <LoaderInline />
         </div>
       )}
-      {!isLoading.get && todo && (
+      {!isLoading.getItem && todo && (
         <>
           <TodoItemDetails
-            {...todo}
+            todo={todo}
             deleteTodos={deleteTodos}
             isLoading={isLoading}
             createUpdateTodos={createUpdateTodos}

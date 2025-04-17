@@ -13,13 +13,18 @@ export interface Todo extends CreateAndUpateFormValue {
   id?: string;
   userId: string;
   createdDate: string;
+  isDone: boolean;
 }
 
 export interface TodosContextLoading {
-  get: boolean;
-  create: boolean;
-  edit: false | { id: string };
-  delete: false | { id: string };
+  getItems: boolean;
+  getItem: boolean;
+  createForm: boolean;
+  editForm: false | { id: string };
+  removeItem: false | { id: string };
+  favouriteItem: false | { id: string };
+  isDoneItem: false | { id: string };
+  deleteItem: false | { id: string };
 }
 
 export type TodosContextType = {
@@ -29,6 +34,7 @@ export type TodosContextType = {
   getTodos: () => void;
   createUpdateTodos: (
     payload: Todo,
+    loadingType: keyof TodosContextLoading,
     mode?: CreateAndUpateFormType,
     redirect?: boolean
   ) => void;

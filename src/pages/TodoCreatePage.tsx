@@ -60,10 +60,11 @@ export const TodoCreatePage = () => {
       id: nanoid(),
       userId: "000000",
       createdDate: getCreatedDate(),
+      isDone: false,
       ...data,
     };
 
-    createUpdateTodos(updatedData, "create", true);
+    createUpdateTodos(updatedData, "createForm", "create", true);
   }
 
   return (
@@ -79,7 +80,7 @@ export const TodoCreatePage = () => {
         handleSubmit={handleSubmit}
         options={mockDataOptions}
         errors={errors}
-        isLoading={isLoading.create}
+        isLoading={isLoading.createForm}
         mode="create"
       />
     </div>

@@ -13,6 +13,7 @@ export const todoMockUp: Todo[] = [
     priorety: { value: TodoPriorety.lite, label: "Низкий" },
     favourite: false,
     tags: null,
+    isDone: false,
   },
   {
     id: nanoid(),
@@ -25,6 +26,7 @@ export const todoMockUp: Todo[] = [
     priorety: { value: TodoPriorety.medium, label: "Средний" },
     favourite: true,
     tags: null,
+    isDone: false,
   },
   {
     id: nanoid(),
@@ -37,6 +39,7 @@ export const todoMockUp: Todo[] = [
     priorety: { value: TodoPriorety.dangerous, label: "Высокий" },
     favourite: false,
     tags: null,
+    isDone: false,
   },
   {
     id: nanoid(),
@@ -49,6 +52,7 @@ export const todoMockUp: Todo[] = [
     priorety: { value: TodoPriorety.medium, label: "Средний" },
     favourite: true,
     tags: null,
+    isDone: false,
   },
   {
     id: nanoid(),
@@ -61,6 +65,7 @@ export const todoMockUp: Todo[] = [
     priorety: { value: TodoPriorety.lite, label: "Низкий" },
     favourite: false,
     tags: null,
+    isDone: false,
   },
   {
     id: nanoid(),
@@ -73,6 +78,7 @@ export const todoMockUp: Todo[] = [
     priorety: { value: TodoPriorety.dangerous, label: "Высокий" },
     favourite: true,
     tags: null,
+    isDone: false,
   },
   {
     id: nanoid(),
@@ -85,6 +91,7 @@ export const todoMockUp: Todo[] = [
     priorety: { value: TodoPriorety.lite, label: "Низкий" },
     favourite: false,
     tags: null,
+    isDone: false,
   },
   {
     id: nanoid(),
@@ -97,6 +104,7 @@ export const todoMockUp: Todo[] = [
     priorety: { value: TodoPriorety.medium, label: "Средний" },
     favourite: true,
     tags: null,
+    isDone: false,
   },
   {
     id: nanoid(),
@@ -109,6 +117,7 @@ export const todoMockUp: Todo[] = [
     priorety: { value: TodoPriorety.lite, label: "Низкий" },
     favourite: false,
     tags: null,
+    isDone: false,
   },
   {
     id: nanoid(),
@@ -121,5 +130,6 @@ export const todoMockUp: Todo[] = [
     priorety: { value: TodoPriorety.dangerous, label: "Высокий" },
     favourite: false,
     tags: null,
+    isDone: false,
   },
 ];
