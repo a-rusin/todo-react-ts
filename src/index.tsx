@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import { TodosProvider } from "./context/TodosContext";
 import { NavigateContextProvider } from "./hooks/useAppNavigate";
+import { AuthProvider } from "./context/AuthContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,7 +15,9 @@ root.render(
   <BrowserRouter>
     <NavigateContextProvider>
       <TodosProvider>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </TodosProvider>
     </NavigateContextProvider>
   </BrowserRouter>

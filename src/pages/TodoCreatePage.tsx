@@ -43,7 +43,7 @@ export const TodoCreatePage = () => {
   const todosContext = useContext(TodosContext);
 
   if (!todosContext) {
-    throw new Error("TodoList must be used within a TodoProvider");
+    throw new Error("TodoProvider not found");
   }
 
   const { createUpdateTodos, isLoading } = todosContext;

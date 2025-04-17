@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import { useForm } from "../../hooks/useForm";
 import { LoginValue } from "../../models/LoginRegister";
 import { ValidatorConfig } from "../../models/ValidatorConfig";
@@ -7,13 +9,14 @@ import { InputField } from "../InputField/InputField";
 import "./LoginForm.css";
 
 const defaultValue: LoginValue = {
-  login: "",
-  password: "",
+  email: "test@mail.ru",
+  password: "123456",
 };
 
 const validatorConfig: ValidatorConfig = {
   login: {
     isRequired: true,
+    email: true,
   },
   password: {
     isRequired: true,
@@ -25,6 +28,14 @@ interface LoginFormProps {
 }
 
 export const LoginForm = ({ handleClick }: LoginFormProps) => {
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    throw new Error("AuthProvider not found");
+  }
+
+  const { login, error, resetError } = authContext;
+
   const { formValue, handleChange, handleSubmit, errors } = useForm<LoginValue>(
     {
       defaultValue,
@@ -34,21 +45,26 @@ export const LoginForm = ({ handleClick }: LoginFormProps) => {
   );
 
   function onSubmit(data: LoginValue) {
-    console.log(data);
+    login(data);
   }
+
+  const handleClickChangeMode = () => {
+    resetError();
+    handleClick("register");
+  };
 
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
       <h1 className="main-title">Авторизация</h1>
       <InputField
         autoComplete="off"
-        id="login"
+        id="email"
         label="Логин"
-        name="login"
+        name="email"
         onChange={handleChange}
         type="text"
-        value={formValue?.login}
-        errors={errors?.login}
+        value={formValue?.email}
+        errors={errors?.email}
         placeholder="Начите печать..."
       />
       <InputField
@@ -62,12 +78,13 @@ export const LoginForm = ({ handleClick }: LoginFormProps) => {
         errors={errors?.password}
         placeholder="Начите печать..."
       />
+      {error && <div className="auth-form-error">Ошибка: {error}</div>}
       <div className="btns-auth-group">
         <Button label="Войти" cssType="primary" type="submit" />
       </div>
       <p className="auth-form-change-mode">
         Еще нет аккаунта?{" "}
-        <span onClick={() => handleClick("register")}>Зарегистрироваться </span>
+        <span onClick={handleClickChangeMode}>Зарегистрироваться </span>
       </p>
     </form>
   );

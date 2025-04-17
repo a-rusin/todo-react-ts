@@ -128,3 +128,8 @@ a {
   display: flex;
   gap: 10rem;
 }
+
+.auth-form-error {
+  text-align: center;
+  color: rgb(202, 9, 9);
+}

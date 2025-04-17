@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { useForm } from "../../hooks/useForm";
 import { LoginValue, RegisterValue } from "../../models/LoginRegister";
 import { ValidatorConfig } from "../../models/ValidatorConfig";
@@ -5,15 +6,21 @@ import { LoginRegisterFormType } from "../../pages/LoginPage";
 import { Button } from "../Button/Button";
 import { InputField } from "../InputField/InputField";
 import "./RegisterForm.css";
+import { AuthContext } from "../../context/AuthContext";
+import { getRandomNumber } from "../../utils/getRandomNumber";
 
 const defaultValue: RegisterValue = {
-  login: "",
-  email: "",
-  password: "",
+  login: "test",
+  name: "test",
+  email: `test${getRandomNumber(1, 100)}@mail.ru`,
+  password: "123456",
 };
 
 const validatorConfig: ValidatorConfig = {
   login: {
+    isRequired: true,
+  },
+  name: {
     isRequired: true,
   },
   email: {
@@ -30,6 +37,14 @@ interface RegisterFormProps {
 }
 
 export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    throw new Error("AuthProvider not found");
+  }
+
+  const { register, error, resetError } = authContext;
+
   const { formValue, handleChange, handleSubmit, errors } =
     useForm<RegisterValue>({
       defaultValue,
@@ -37,9 +52,14 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
       validatorConfig,
     });
 
-  function onSubmit(data: LoginValue) {
-    console.log(data);
+  function onSubmit(data: RegisterValue) {
+    register(data, () => handleClick("login"));
   }
+
+  const handleClickChangeMode = () => {
+    resetError();
+    handleClick("login");
+  };
 
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
@@ -53,6 +73,17 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
         type="text"
         value={formValue?.login}
         errors={errors?.login}
+        placeholder="Начите печать..."
+      />
+      <InputField
+        autoComplete="off"
+        id="name"
+        label="Имя"
+        name="name"
+        onChange={handleChange}
+        type="text"
+        value={formValue?.name}
+        errors={errors?.name}
         placeholder="Начите печать..."
       />
       <InputField
@@ -77,12 +108,13 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
         errors={errors?.password}
         placeholder="Начите печать..."
       />
+      {error && <div className="auth-form-error">Ошибка: {error}</div>}
+
       <div className="btns-auth-group">
         <Button label="Регистрация" cssType="primary" type="submit" />
       </div>
       <p className="auth-form-change-mode">
-        Уже есть аккаунт?{" "}
-        <span onClick={() => handleClick("login")}>Войти</span>
+        Уже есть аккаунт? <span onClick={handleClickChangeMode}>Войти</span>
       </p>
     </form>
   );

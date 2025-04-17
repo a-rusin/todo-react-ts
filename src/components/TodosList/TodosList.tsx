@@ -8,7 +8,7 @@ export const TodosList = ({}) => {
   const todosContext = useContext(TodosContext);
 
   if (!todosContext) {
-    throw new Error("TodoList must be used within a TodoProvider");
+    throw new Error("TodoProvider not found");
   }
 
   const { todos, isLoading } = todosContext;
