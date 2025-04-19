@@ -9,6 +9,9 @@ export const handleError = (errorMessage: string): string => {
     case "INVALID_LOGIN_CREDENTIALS":
       return "Неверный логин или пароль";
       break;
+    case "INVALID_ID_TOKEN":
+      return "Ошибка авторизации, попробоуйте войти еще раз";
+      break;
     default:
       return "Неизственная ошибка, попробуй позже";
       break;

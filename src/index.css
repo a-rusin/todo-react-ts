@@ -133,3 +133,7 @@ a {
   text-align: center;
   color: rgb(202, 9, 9);
 }
+
+.auth-container-loading {
+  text-align: center;
+}

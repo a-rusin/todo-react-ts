@@ -16,9 +16,11 @@ export type AuthContextType = {
   login: (payload: LoginValue) => void;
   error: string | undefined;
   resetError: () => void;
+  currentUser: string | undefined;
+  logOut: () => void;
 };
 
-export interface RegisterServerResponce {
+export interface RegisterLoginServerResponce {
   email: string;
   expiresIn: string;
   idToken: string;
