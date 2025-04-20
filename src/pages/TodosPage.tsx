@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { TodosList } from "../components/TodosList/TodosList";
-import { postMockUpData } from "../services/postMockUpData";
+
 import { todoMockUp } from "../mockUpData/Todos";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+
+import { postMockUpData } from "../services/postMockUpData";
 
 export const TodosPage = () => {
   const authContext = useContext(AuthContext);

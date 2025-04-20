@@ -1,10 +1,12 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import { Todo, TodosContextLoading, TodosContextType } from "../models/Todo";
 import { todosService } from "../services/todos.service";
 import { useAppNavigate } from "../hooks/useAppNavigate";
 import { CreateAndUpateFormType } from "../models/CreateAndUpdate";
 import { useLocation } from "react-router-dom";
+import { AuthContext } from "./AuthContext";
+import localStorageService from "../services/localStorage.service";
 
 export const TodosContext = createContext<TodosContextType | undefined>(
   undefined
@@ -20,7 +22,7 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
   const [isLoading, setIsLoading] = useState<TodosContextLoading>({
     createForm: false,
     editForm: false,
-    deleteItem: { id: "JCpUnv2wpQEoyy3V2KHA4" },
+    deleteItem: false,
     getItems: false,
     getItem: false,
     favouriteItem: false,
@@ -32,14 +34,18 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
 
   const location = useLocation();
 
+  const currentUser = localStorageService.getLocalUserId();
+
   useEffect(() => {
-    getTodos();
-  }, []);
+    if (currentUser) {
+      getTodos();
+    }
+  }, [currentUser]);
 
   const getTodos = async () => {
     try {
       setIsLoading((prev) => ({ ...prev, getItems: true }));
-      const data = await todosService.get<Todo[]>();
+      const data = await todosService.get<Todo[]>(currentUser!);
       setTodos(data);
     } catch (error) {
       console.log(error);
@@ -51,7 +57,7 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
   const getTodoById = async (id: string) => {
     try {
       setIsLoading((prev) => ({ ...prev, getItem: true }));
-      const data = await todosService.getById<Todo>(id);
+      const data = await todosService.getById<Todo>(id, currentUser!);
       setTodo(data);
     } catch (error) {
       console.log(error);
@@ -76,7 +82,10 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
         }));
       }
 
-      const data = await todosService.createAndUpdate<Todo>(payload);
+      const data = await todosService.createAndUpdate<Todo>(
+        payload,
+        currentUser!
+      );
 
       if (mode && mode === "create") {
         setTodos((prev) => (prev ? [...prev, data] : [data]));
@@ -105,7 +114,7 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
     try {
       setIsLoading((prev) => ({ ...prev, deleteItem: { id } }));
 
-      const data = await todosService.delete(id);
+      const data = await todosService.delete(id, currentUser!);
       if (data === null) {
         setTodos((prev) => prev && prev.filter((todo) => todo.id !== id));
 

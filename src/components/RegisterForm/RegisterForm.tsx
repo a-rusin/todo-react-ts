@@ -43,7 +43,7 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
     throw new Error("AuthProvider not found");
   }
 
-  const { register, error, resetError } = authContext;
+  const { register, error, resetError, isLoading } = authContext;
 
   const { formValue, handleChange, handleSubmit, errors } =
     useForm<RegisterValue>({
@@ -111,7 +111,12 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
       {error && <div className="auth-form-error">Ошибка: {error}</div>}
 
       <div className="btns-auth-group">
-        <Button label="Регистрация" cssType="primary" type="submit" />
+        <Button
+          label="Регистрация"
+          cssType="primary"
+          type="submit"
+          isLoading={isLoading}
+        />
       </div>
       <p className="auth-form-change-mode">
         Уже есть аккаунт? <span onClick={handleClickChangeMode}>Войти</span>

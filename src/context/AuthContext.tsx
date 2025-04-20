@@ -50,6 +50,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const register = async (payload: RegisterValue, callback: () => void) => {
     setError(undefined);
+    setIsLoading(true);
+
     try {
       const data = await authService.register<RegisterLoginServerResponce>(
         payload
@@ -64,6 +66,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const login = async (payload: LoginValue) => {
     setError(undefined);
+    setIsLoading(true);
+
     try {
       const data = await authService.login<RegisterLoginServerResponce>(
         payload
@@ -71,7 +75,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setCurrentUser(data.localId);
       localStorageService.setTokens(data);
       appNavigate("/");
-      console.log(data);
     } catch (err) {
       hadleErrorResponce(err);
     } finally {

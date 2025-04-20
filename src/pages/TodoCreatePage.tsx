@@ -9,6 +9,7 @@ import { nanoid } from "nanoid";
 import { getCreatedDate } from "../utils/getCreatedDate";
 import { useContext } from "react";
 import { TodosContext } from "../context/TodosContext";
+import { AuthContext } from "../context/AuthContext";
 
 const mockDataOptions: SingleSelectOptions[] = [
   { label: "test", value: "test" },
@@ -41,12 +42,14 @@ const validatorConfig: ValidatorConfig = {
 
 export const TodoCreatePage = () => {
   const todosContext = useContext(TodosContext);
+  const authContext = useContext(AuthContext);
 
-  if (!todosContext) {
-    throw new Error("TodoProvider not found");
+  if (!todosContext || !authContext) {
+    throw new Error("TodoProvider or AuthProvider not found");
   }
 
   const { createUpdateTodos, isLoading } = todosContext;
+  const { currentUser } = authContext;
 
   const { formValue, handleChange, handleReset, handleSubmit, errors } =
     useForm<CreateAndUpateFormValue>({
@@ -58,7 +61,7 @@ export const TodoCreatePage = () => {
   function onSubmit(data: CreateAndUpateFormValue) {
     const updatedData: Todo = {
       id: nanoid(),
-      userId: "000000",
+      userId: currentUser!,
       createdDate: getCreatedDate(),
       isDone: false,
       ...data,

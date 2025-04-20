@@ -34,7 +34,7 @@ export const LoginForm = ({ handleClick }: LoginFormProps) => {
     throw new Error("AuthProvider not found");
   }
 
-  const { login, error, resetError } = authContext;
+  const { login, error, resetError, isLoading } = authContext;
 
   const { formValue, handleChange, handleSubmit, errors } = useForm<LoginValue>(
     {
@@ -80,11 +80,16 @@ export const LoginForm = ({ handleClick }: LoginFormProps) => {
       />
       {error && <div className="auth-form-error">Ошибка: {error}</div>}
       <div className="btns-auth-group">
-        <Button label="Войти" cssType="primary" type="submit" />
+        <Button
+          label="Войти"
+          cssType="primary"
+          type="submit"
+          isLoading={isLoading}
+        />
       </div>
       <p className="auth-form-change-mode">
         Еще нет аккаунта?{" "}
-        <span onClick={handleClickChangeMode}>Зарегистрироваться </span>
+        <span onClick={handleClickChangeMode}>Зарегистрироваться</span>
       </p>
     </form>
   );
