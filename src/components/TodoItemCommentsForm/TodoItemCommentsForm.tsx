@@ -1,8 +1,12 @@
+import { nanoid } from "nanoid";
 import { useForm } from "../../hooks/useForm";
+import { Comment } from "../../models/Comments";
 import { ValidatorConfig } from "../../models/ValidatorConfig";
 import { Button } from "../Button/Button";
 import { TextAreaField } from "../TextAreaField/TextAreaField";
 import "./TodoItemCommentsForm.css";
+import localStorageService from "../../services/localStorage.service";
+import { useParams } from "react-router-dom";
 
 interface CommentValue {
   comment: string;
@@ -18,7 +22,17 @@ const validatorConfig: ValidatorConfig = {
   },
 };
 
-export const TodoItemCommentsForm = () => {
+type RouteParams = {
+  id: string;
+};
+
+interface TodoItemCommentsFormProps {
+  createTask: (payload: Comment) => void;
+}
+
+export const TodoItemCommentsForm = ({
+  createTask,
+}: TodoItemCommentsFormProps) => {
   const { formValue, handleChange, handleSubmit, errors } =
     useForm<CommentValue>({
       defaultValue,
@@ -26,8 +40,20 @@ export const TodoItemCommentsForm = () => {
       validatorConfig,
     });
 
+  const { id: taskId } = useParams<RouteParams>();
+
   function onSubmit(data: CommentValue) {
-    console.log(data);
+    // create
+
+    const userId = localStorageService.getLocalUserId();
+    const updatedDate: Comment = {
+      id: nanoid(),
+      content: data.comment,
+      createdAt: Date.now().toString(),
+      taskId,
+      userId,
+    };
+    createTask(updatedDate);
   }
 
   return (

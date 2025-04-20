@@ -25,7 +25,7 @@ const getRefreshToken = () => localStorage.getItem(REFRESH_KEY);
 
 const getExpiresDate = () => localStorage.getItem(EXPIRES_KEY);
 
-const getLocalUserId = () => localStorage.getItem(USERID_KEY);
+const getLocalUserId = () => localStorage.getItem(USERID_KEY) || undefined;
 
 const removeAuthData = () => {
   localStorage.removeItem(USERID_KEY);

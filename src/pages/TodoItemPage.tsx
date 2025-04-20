@@ -4,6 +4,7 @@ import { TodoItemDetails } from "../components/TodoItemDetails/TodoItemDetails";
 import { useContext, useEffect } from "react";
 import { TodosContext } from "../context/TodosContext";
 import { LoaderInline } from "../components/LoaderInline/LoaderInline";
+import { CommentContextProvider } from "../context/CommentsContext";
 
 type RouteParams = {
   id: string;
@@ -54,7 +55,9 @@ export const TodoItemPage = () => {
             isLoading={isLoading}
             createUpdateTodos={createUpdateTodos}
           />
-          <TodoItemComments />
+          <CommentContextProvider>
+            <TodoItemComments />
+          </CommentContextProvider>
         </>
       )}
     </div>

@@ -5,7 +5,6 @@ import { todosService } from "../services/todos.service";
 import { useAppNavigate } from "../hooks/useAppNavigate";
 import { CreateAndUpateFormType } from "../models/CreateAndUpdate";
 import { useLocation } from "react-router-dom";
-import { AuthContext } from "./AuthContext";
 import localStorageService from "../services/localStorage.service";
 
 export const TodosContext = createContext<TodosContextType | undefined>(

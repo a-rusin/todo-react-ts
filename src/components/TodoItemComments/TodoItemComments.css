@@ -24,6 +24,10 @@
   line-height: 150%;
 }
 
+.todo-comments-list-item:not(:first-child) {
+  margin-top: 10rem;
+}
+
 .todo-comments-content {
 }
 
