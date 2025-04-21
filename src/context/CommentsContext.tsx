@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { TodoContext, Comment } from "../models/Comments";
+import { TodoContext, Comment, TodoContextLoading } from "../models/Comments";
 import { commentsService } from "../services/comments.service";
 
 export const CommentContext = createContext<TodoContext | undefined>(undefined);
@@ -12,30 +12,35 @@ export const CommentContextProvider = ({
   children,
 }: CommentContextProviderProps) => {
   const [comments, setComments] = useState<Comment[] | undefined>();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<TodoContextLoading>({
+    createForm: false,
+    delete: false,
+    get: false,
+  });
 
-  const create = async (payload: Comment) => {
-    setIsLoading(true);
+  const create = async (payload: Comment, callback: () => void) => {
+    setIsLoading((prev) => ({ ...prev, createForm: true }));
     try {
       const data = await commentsService.create<Comment>(payload);
       setComments((prev) => (prev ? [...prev, data] : [data]));
-      console.log(data);
+      callback();
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading(false);
+      setIsLoading((prev) => ({ ...prev, createForm: false }));
     }
   };
 
   const get = async (userId: string, taskId: string) => {
-    setIsLoading(true);
+    setIsLoading((prev) => ({ ...prev, get: true }));
+
     try {
       const data = await commentsService.get<Comment[]>(userId, taskId);
       setComments(data);
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading(false);
+      setIsLoading((prev) => ({ ...prev, get: false }));
     }
   };
 

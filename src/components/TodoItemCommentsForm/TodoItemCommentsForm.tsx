@@ -27,13 +27,15 @@ type RouteParams = {
 };
 
 interface TodoItemCommentsFormProps {
-  createTask: (payload: Comment) => void;
+  createTask: (payload: Comment, callback: () => void) => void;
+  isLoading: boolean;
 }
 
 export const TodoItemCommentsForm = ({
   createTask,
+  isLoading,
 }: TodoItemCommentsFormProps) => {
-  const { formValue, handleChange, handleSubmit, errors } =
+  const { formValue, handleChange, handleSubmit, errors, handleReset } =
     useForm<CommentValue>({
       defaultValue,
       onSubmit,
@@ -53,7 +55,9 @@ export const TodoItemCommentsForm = ({
       taskId,
       userId,
     };
-    createTask(updatedDate);
+    createTask(updatedDate, () => {
+      handleReset();
+    });
   }
 
   return (
@@ -73,6 +77,7 @@ export const TodoItemCommentsForm = ({
         label="Добавить"
         type="submit"
         className="todo-comments-btn-submit"
+        isLoading={isLoading}
       />
     </form>
   );

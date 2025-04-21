@@ -4,6 +4,7 @@ import "./TodoItemComments.css";
 import { CommentContext } from "../../context/CommentsContext";
 import { useParams } from "react-router-dom";
 import localStorageService from "../../services/localStorage.service";
+import { TodoItemCommentsList } from "../TodoItemCommentsList/TodoItemCommentsList";
 
 type RouteParams = {
   id: string;
@@ -30,16 +31,11 @@ export const TodoItemComments = () => {
   return (
     <div className="todo-comments-container">
       <h5 className="todo-comments-title">Комментарии</h5>
-      <TodoItemCommentsForm createTask={create} />
-      <ul className="todo-comments-list">
-        {comments &&
-          comments.map((comment) => (
-            <li key={comment.id} className="todo-comments-list-item">
-              <p className="todo-comments-content">{comment.content}</p>
-              <p className="todo-comments-date">{comment.createdAt}</p>
-            </li>
-          ))}
-      </ul>
+      <TodoItemCommentsForm
+        createTask={create}
+        isLoading={isLoading.createForm}
+      />
+      <TodoItemCommentsList comments={comments} isLoading={isLoading.get} />
     </div>
   );
 };

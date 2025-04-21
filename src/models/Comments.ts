@@ -1,7 +1,12 @@
+export interface TodoContextLoading {
+  createForm: boolean;
+  get: boolean;
+  delete: false | { id: string };
+}
 export interface TodoContext {
   comments: Comment[] | undefined;
-  isLoading: boolean;
-  create: (payload: Comment) => void;
+  isLoading: TodoContextLoading;
+  create: (payload: Comment, callback: () => void) => void;
   get: (userId: string, taskId: string) => void;
 }
 
