@@ -4,6 +4,7 @@ import { NotFoundPage } from "./pages/NotFoundPage";
 import { MainPage } from "./pages/MainPage";
 import { TodosRoutes } from "./routes/TodosRoutes";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
+import { TagsPage } from "./pages/TagsPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<MainPage />} />
           <Route path="/todos/*" element={<TodosRoutes />} />
+          <Route path="/tags" element={<TagsPage />} />
         </Route>
 
         <Route path="/login" element={<LoginPage />} />
