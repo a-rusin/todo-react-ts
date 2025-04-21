@@ -6,7 +6,7 @@ import { useForm } from "../hooks/useForm";
 import { ValidatorConfig } from "../models/ValidatorConfig";
 import { Todo } from "../models/Todo";
 import { nanoid } from "nanoid";
-import { getCreatedDate } from "../utils/getCreatedDate";
+
 import { useContext } from "react";
 import { TodosContext } from "../context/TodosContext";
 import { AuthContext } from "../context/AuthContext";
@@ -60,11 +60,12 @@ export const TodoCreatePage = () => {
 
   function onSubmit(data: CreateAndUpateFormValue) {
     const updatedData: Todo = {
+      ...data,
       id: nanoid(),
       userId: currentUser!,
-      createdDate: getCreatedDate(),
+      createdDate: Date.now().toString(),
       isDone: false,
-      ...data,
+      dateDeadline: new Date(formValue!.dateDeadline).getTime().toString(),
     };
 
     createUpdateTodos(updatedData, "createForm", "create", true);

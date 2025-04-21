@@ -2,11 +2,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./TodosListItem.css";
 import { Link } from "react-router-dom";
 import { Todo, TodoPriorety, TodosContextLoading } from "../../models/Todo";
-import { formatDateString } from "../../utils/formatDateString";
 import { useContext } from "react";
 import { TodosContext } from "../../context/TodosContext";
 import { LoaderInline } from "../LoaderInline/LoaderInline";
-import { isLoadingTodoValue } from "../../utils/isLoadingTodoValue";
+import { isLoadingValue } from "../../utils/isLoadingValue";
+import { getCurrentDate } from "../../utils/getCurrentDate";
 
 export const TodosListItem = ({ todo }: { todo: Todo }) => {
   const navigate = useNavigate();
@@ -31,9 +31,9 @@ export const TodosListItem = ({ todo }: { todo: Todo }) => {
     );
   };
 
-  const isLoadingDelete = isLoadingTodoValue(isLoading.deleteItem);
-  const isLoadingFav = isLoadingTodoValue(isLoading.favouriteItem);
-  const isLoadingIsDone = isLoadingTodoValue(isLoading.isDoneItem);
+  const isLoadingDelete = isLoadingValue(isLoading.deleteItem);
+  const isLoadingFav = isLoadingValue(isLoading.favouriteItem);
+  const isLoadingIsDone = isLoadingValue(isLoading.isDoneItem);
 
   return (
     <li
@@ -76,7 +76,7 @@ export const TodosListItem = ({ todo }: { todo: Todo }) => {
             )}
 
             <div className="todo-item-deadline">
-              {formatDateString(todo.dateDeadline)}
+              {getCurrentDate(todo.dateDeadline, false)}
             </div>
           </div>
         </div>

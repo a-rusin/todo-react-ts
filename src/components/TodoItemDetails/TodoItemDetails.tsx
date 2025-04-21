@@ -1,10 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { PrioretyArray } from "../../constans/prioretyObj";
-import { Todo, TodoPriorety, TodosContextLoading } from "../../models/Todo";
-import { formatDateString } from "../../utils/formatDateString";
-import "./TodoItemDetails.css";
+import { Todo, TodosContextLoading } from "../../models/Todo";
 import { CreateAndUpateFormType } from "../../models/CreateAndUpdate";
-import { isLoadingTodoValue } from "../../utils/isLoadingTodoValue";
+import { isLoadingValue } from "../../utils/isLoadingValue";
+import { getCurrentDate } from "../../utils/getCurrentDate";
+import "./TodoItemDetails.css";
 
 interface TodoItemDetailsProps {
   todo: Todo;
@@ -27,10 +26,10 @@ export const TodoItemDetails = ({
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isLoadingDelete = isLoadingTodoValue(isLoading.deleteItem);
+  const isLoadingDelete = isLoadingValue(isLoading.deleteItem);
 
-  const isLoadingFav = isLoadingTodoValue(isLoading.favouriteItem);
-  const isLoadingIsDone = isLoadingTodoValue(isLoading.isDoneItem);
+  const isLoadingFav = isLoadingValue(isLoading.favouriteItem);
+  const isLoadingIsDone = isLoadingValue(isLoading.isDoneItem);
 
   const handleClickEditTodoState = (prop: "isDone" | "favourite") => {
     const loadingType = `${prop}Item` as keyof TodosContextLoading;
@@ -100,13 +99,13 @@ export const TodoItemDetails = ({
         <li className="todo-details-list-item">
           <div className="todo-details-label">Дедлайн:</div>
           <div className="todo-details-value">
-            {formatDateString(todo.dateDeadline)}
+            {getCurrentDate(todo.dateDeadline, false)}
           </div>
         </li>
         <li className="todo-details-list-item">
           <div className="todo-details-label">Дата создания:</div>
           <div className="todo-details-value">
-            {formatDateString(todo.createdDate)}
+            {getCurrentDate(todo.createdDate, false)}
           </div>
         </li>
         <li className="todo-details-list-item">

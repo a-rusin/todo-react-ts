@@ -1,17 +1,34 @@
 import { JSX } from "react";
-import { Comment } from "../../models/Comments";
+import { Comment, TodoContextLoading } from "../../models/Comments";
 import { LoaderInline } from "../LoaderInline/LoaderInline";
+import "./TodoItemCommentsList.css";
+import { isLoadingValue } from "../../utils/isLoadingValue";
+import { getCurrentDate } from "../../utils/getCurrentDate";
 
 interface TodoItemCommentsListProps {
   comments: Comment[] | undefined;
-  isLoading: boolean;
+  isLoading: TodoContextLoading;
+  removeComment: (userId: string, taskId: string, commentId: string) => void;
+  taskId: string | undefined;
+  userId: string | undefined;
 }
 
 export const TodoItemCommentsList = ({
   comments,
   isLoading,
+  removeComment,
+  taskId,
+  userId,
 }: TodoItemCommentsListProps): JSX.Element => {
-  if (isLoading) {
+  const handleClickDelete = (commentId: string) => {
+    if (userId && taskId) {
+      removeComment(userId, taskId, commentId);
+    }
+  };
+
+  const isLoadingDelete = isLoadingValue(isLoading.delete);
+
+  if (isLoading.get) {
     return (
       <div className="todo-status-container">
         <LoaderInline />
@@ -22,17 +39,31 @@ export const TodoItemCommentsList = ({
       <ul className="todo-comments-list">
         {comments &&
           comments.map((comment) => (
-            <li key={comment.id} className="todo-comments-list-item">
+            <li
+              key={comment.id}
+              className={
+                "todo-comments-list-item " +
+                (comment.id === isLoadingDelete && " process ")
+              }
+            >
               <p className="todo-comments-content">{comment.content}</p>
-              <p className="todo-comments-date">{comment.createdAt}</p>
+              <div className="todo-comments-toolbar">
+                <button
+                  className="todo-comments-delete-btn"
+                  onClick={() => handleClickDelete(comment.id)}
+                >
+                  Удалить
+                </button>
+                <p className="todo-comments-date">
+                  {getCurrentDate(comment.createdAt, true)}
+                </p>
+              </div>
             </li>
           ))}
       </ul>
     );
   }
   return (
-    <div className="todo-comments-list-item">
-      Комментариев к этой задаче пока нет
-    </div>
+    <div className="todo-comments-list-empty">Список комментариев пуст</div>
   );
 };

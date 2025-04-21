@@ -44,8 +44,27 @@ export const CommentContextProvider = ({
     }
   };
 
+  const remove = async (userId: string, taskId: string, commentId: string) => {
+    setIsLoading((prev) => ({ ...prev, delete: { id: commentId } }));
+    try {
+      const data = await commentsService.delete(userId, taskId, commentId);
+
+      if (data === null) {
+        setComments((prev) =>
+          prev?.filter((comment) => comment.id !== commentId)
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading((prev) => ({ ...prev, delete: false }));
+    }
+  };
+
   return (
-    <CommentContext.Provider value={{ comments, isLoading, create, get }}>
+    <CommentContext.Provider
+      value={{ comments, isLoading, create, get, remove }}
+    >
       {children}
     </CommentContext.Provider>
   );

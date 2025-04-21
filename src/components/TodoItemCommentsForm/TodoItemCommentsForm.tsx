@@ -45,8 +45,6 @@ export const TodoItemCommentsForm = ({
   const { id: taskId } = useParams<RouteParams>();
 
   function onSubmit(data: CommentValue) {
-    // create
-
     const userId = localStorageService.getLocalUserId();
     const updatedDate: Comment = {
       id: nanoid(),

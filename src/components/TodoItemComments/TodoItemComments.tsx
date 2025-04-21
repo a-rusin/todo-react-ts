@@ -17,7 +17,13 @@ export const TodoItemComments = () => {
     throw new Error("CommentsProvider not found");
   }
 
-  const { comments, create, isLoading, get: getComments } = commentsContext;
+  const {
+    comments,
+    create,
+    isLoading,
+    get: getComments,
+    remove: removeComment,
+  } = commentsContext;
 
   const { id: taskId } = useParams<RouteParams>();
   const userId = localStorageService.getLocalUserId();
@@ -35,7 +41,13 @@ export const TodoItemComments = () => {
         createTask={create}
         isLoading={isLoading.createForm}
       />
-      <TodoItemCommentsList comments={comments} isLoading={isLoading.get} />
+      <TodoItemCommentsList
+        comments={comments}
+        isLoading={isLoading}
+        removeComment={removeComment}
+        taskId={taskId}
+        userId={userId}
+      />
     </div>
   );
 };

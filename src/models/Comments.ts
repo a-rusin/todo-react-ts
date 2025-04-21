@@ -8,6 +8,7 @@ export interface TodoContext {
   isLoading: TodoContextLoading;
   create: (payload: Comment, callback: () => void) => void;
   get: (userId: string, taskId: string) => void;
+  remove: (userId: string, taskId: string, commentId: string) => void;
 }
 
 export interface Comment {

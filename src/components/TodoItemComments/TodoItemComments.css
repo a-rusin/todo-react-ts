@@ -10,29 +10,3 @@
   font-size: 30rem;
   line-height: 140%;
 }
-
-.todo-comments-list {
-  padding-top: 30rem;
-}
-
-.todo-comments-list-item {
-  border: 1rem solid rgba(61, 71, 81, 0.3);
-  padding: 24rem;
-  border-radius: 10rem;
-  background-color: rgba(35, 40, 46, 0.3);
-  font-size: 18rem;
-  line-height: 150%;
-}
-
-.todo-comments-list-item:not(:first-child) {
-  margin-top: 10rem;
-}
-
-.todo-comments-content {
-}
-
-.todo-comments-date {
-  text-align: right;
-  padding-top: 10rem;
-  opacity: 0.5;
-}
