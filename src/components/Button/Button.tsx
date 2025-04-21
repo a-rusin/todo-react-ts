@@ -1,3 +1,4 @@
+import { InputSizeType } from "../../models/Form";
 import { LoaderInline } from "../LoaderInline/LoaderInline";
 import "./Button.css";
 
@@ -8,6 +9,7 @@ interface ButtonProps {
   type: "button" | "reset" | "submit";
   className?: string;
   isLoading?: boolean;
+  inputSizes: InputSizeType;
 }
 
 export const Button = ({
@@ -17,8 +19,13 @@ export const Button = ({
   type,
   className,
   isLoading,
+  inputSizes,
 }: ButtonProps) => {
-  const classes = "btn " + cssType + (className ? " " + className : "");
+  const classes =
+    "btn " +
+    ("size-" + inputSizes + " ") +
+    cssType +
+    (className ? " " + className : "");
 
   return (
     <button onClick={onClick} className={classes} type={type}>

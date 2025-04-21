@@ -76,6 +76,7 @@ export const TodoItemCommentsForm = ({
         type="submit"
         className="todo-comments-btn-submit"
         isLoading={isLoading}
+        inputSizes="xl"
       />
     </form>
   );

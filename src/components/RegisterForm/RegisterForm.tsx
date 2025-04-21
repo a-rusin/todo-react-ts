@@ -74,6 +74,7 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
         value={formValue?.login}
         errors={errors?.login}
         placeholder="Начите печать..."
+        inputSizes="xl"
       />
       <InputField
         autoComplete="off"
@@ -85,6 +86,7 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
         value={formValue?.name}
         errors={errors?.name}
         placeholder="Начите печать..."
+        inputSizes="xl"
       />
       <InputField
         autoComplete="off"
@@ -96,6 +98,7 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
         value={formValue?.email}
         errors={errors?.email}
         placeholder="Начите печать..."
+        inputSizes="xl"
       />
       <InputField
         autoComplete="off"
@@ -107,6 +110,7 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
         value={formValue?.password}
         errors={errors?.password}
         placeholder="Начите печать..."
+        inputSizes="xl"
       />
       {error && <div className="auth-form-error">Ошибка: {error}</div>}
 
@@ -116,6 +120,7 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
           cssType="primary"
           type="submit"
           isLoading={isLoading}
+          inputSizes="xl"
         />
       </div>
       <p className="auth-form-change-mode">

@@ -15,11 +15,20 @@
   outline: none;
   display: block;
   width: 100%;
-  padding: 20rem 14rem;
   color: #fff;
-  font-size: 18rem;
   font-family: inherit;
+}
+
+.input-field.size-xl {
+  padding: 20rem 14rem;
+  font-size: 18rem;
   border-radius: 10rem;
+}
+
+.input-field.size-l {
+  padding: 15rem 10rem;
+  font-size: 15rem;
+  border-radius: 6rem;
 }
 
 .input-block.invalid .input-field {

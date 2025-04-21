@@ -1,0 +1,13 @@
+.form-tags {
+  display: flex;
+  align-items: center;
+  gap: 10rem;
+}
+
+.form-tags > .input-block {
+  flex: 0 1 80%;
+}
+
+.form-tags > .btn {
+  flex: 0 1 20%;
+}

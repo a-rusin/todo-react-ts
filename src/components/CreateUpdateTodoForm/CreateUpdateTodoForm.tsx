@@ -46,6 +46,7 @@ export const CreateAndUpdateForm = ({
         placeholder="Начините печатать..."
         autoComplete="off"
         errors={errors?.title}
+        inputSizes="xl"
       />
       <TextAreaField
         id="description"
@@ -96,6 +97,7 @@ export const CreateAndUpdateForm = ({
           cssType="primary"
           type="submit"
           isLoading={isLoading}
+          inputSizes="xl"
         />
         <Button
           label="Сбросить"
@@ -103,6 +105,7 @@ export const CreateAndUpdateForm = ({
           type="reset"
           onClick={handleReset}
           isLoading={false}
+          inputSizes="xl"
         />
       </div>
     </form>

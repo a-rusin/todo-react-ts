@@ -66,6 +66,7 @@ export const LoginForm = ({ handleClick }: LoginFormProps) => {
         value={formValue?.email}
         errors={errors?.email}
         placeholder="Начите печать..."
+        inputSizes="xl"
       />
       <InputField
         autoComplete="off"
@@ -77,6 +78,7 @@ export const LoginForm = ({ handleClick }: LoginFormProps) => {
         value={formValue?.password}
         errors={errors?.password}
         placeholder="Начите печать..."
+        inputSizes="xl"
       />
       {error && <div className="auth-form-error">Ошибка: {error}</div>}
       <div className="btns-auth-group">
@@ -85,6 +87,7 @@ export const LoginForm = ({ handleClick }: LoginFormProps) => {
           cssType="primary"
           type="submit"
           isLoading={isLoading}
+          inputSizes="xl"
         />
       </div>
       <p className="auth-form-change-mode">

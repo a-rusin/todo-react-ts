@@ -14,9 +14,6 @@
   justify-content: center;
   color: #fff;
   background-color: rgb(51, 153, 255);
-  height: 52rem;
-  border-radius: 10rem;
-  font-size: 20rem;
 }
 
 .btn.secondary {
@@ -25,7 +22,16 @@
   justify-content: center;
   color: rgb(51, 153, 255);
   border: 1rem solid rgb(51, 153, 255);
-  height: 52rem;
+}
+
+.btn.size-xl {
+  height: 64rem;
   border-radius: 10rem;
   font-size: 20rem;
+}
+
+.btn.size-l {
+  height: 50rem;
+  border-radius: 6rem;
+  font-size: 14rem;
 }

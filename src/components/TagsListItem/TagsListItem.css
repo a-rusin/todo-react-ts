@@ -9,8 +9,15 @@
 .tags-wrapper {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 20rem;
 }
 
 .tags-title {
-  flex: 0 1 100%;
+  flex: 0 0 50%;
+}
+
+.tags-btns {
+  display: flex;
+  gap: 10rem;
 }

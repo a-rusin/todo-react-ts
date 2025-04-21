@@ -2,7 +2,7 @@ import "./EditButton.css";
 
 interface EditButtonProps {
   handleClick: (id: string | undefined) => void;
-  id: string | undefined;
+  id?: string | undefined;
 }
 
 export const EditButton = ({ handleClick, id }: EditButtonProps) => {

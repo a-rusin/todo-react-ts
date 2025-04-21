@@ -1,8 +1,9 @@
 import React from "react";
 import "./InputField.css";
+import { InputSizeType } from "../../models/Form";
 
 interface InputFieldProps {
-  label: string;
+  label?: string;
   id: string;
   type: string;
   value: string | undefined;
@@ -11,6 +12,7 @@ interface InputFieldProps {
   name: string;
   autoComplete: string;
   errors?: string[];
+  inputSizes: InputSizeType;
 }
 
 export const InputField = ({
@@ -23,6 +25,7 @@ export const InputField = ({
   name,
   autoComplete,
   errors,
+  inputSizes,
 }: InputFieldProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange({ name: e.target.name, value: e.target.value });
@@ -30,15 +33,17 @@ export const InputField = ({
 
   return (
     <div className={errors ? "input-block invalid" : "input-block"}>
-      <label htmlFor={id} className="input-label">
-        {label}:
-      </label>
+      {label && (
+        <label htmlFor={id} className="input-label">
+          {label}:
+        </label>
+      )}
       <input
         type={type}
         id={id}
         value={value || ""}
         onChange={handleChange}
-        className="input-field"
+        className={"input-field " + "size-" + inputSizes}
         placeholder={placeholder}
         name={name}
         autoComplete={autoComplete}
