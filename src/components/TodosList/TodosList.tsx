@@ -13,16 +13,22 @@ export const TodosList = ({}) => {
 
   const { todos, isLoading } = todosContext;
 
+  const sortedComments =
+    todos &&
+    todos.sort((a, b) => {
+      return Number(b.createdDate) - Number(a.createdDate);
+    });
+
   if (isLoading.getItems) {
     return (
       <div className="todo-status-container">
         <LoaderInline />
       </div>
     );
-  } else if (Array.isArray(todos) && todos.length !== 0) {
+  } else if (Array.isArray(sortedComments) && sortedComments.length !== 0) {
     return (
       <ul className="todo-list">
-        {todos.map((todo) => (
+        {sortedComments.map((todo) => (
           <TodosListItem key={todo.id} todo={todo} />
         ))}
       </ul>

@@ -54,8 +54,8 @@ export const CommentContextProvider = ({
           prev?.filter((comment) => comment.id !== commentId)
         );
       }
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     } finally {
       setIsLoading((prev) => ({ ...prev, delete: false }));
     }

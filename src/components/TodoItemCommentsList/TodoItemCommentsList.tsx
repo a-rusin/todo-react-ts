@@ -28,17 +28,23 @@ export const TodoItemCommentsList = ({
 
   const isLoadingDelete = isLoadingValue(isLoading.delete);
 
+  const sortedComments =
+    comments &&
+    comments.sort((a, b) => {
+      return Number(b.createdAt) - Number(a.createdAt);
+    });
+
   if (isLoading.get) {
     return (
       <div className="todo-status-container">
         <LoaderInline />
       </div>
     );
-  } else if (Array.isArray(comments) && comments.length !== 0) {
+  } else if (Array.isArray(sortedComments) && sortedComments.length !== 0) {
     return (
       <ul className="todo-comments-list">
-        {comments &&
-          comments.map((comment) => (
+        {sortedComments &&
+          sortedComments.map((comment) => (
             <li
               key={comment.id}
               className={
