@@ -8,7 +8,7 @@ interface ButtonProps {
   cssType: "primary" | "secondary";
   type: "button" | "reset" | "submit";
   className?: string;
-  isLoading?: boolean;
+  isLoading?: boolean | string;
   inputSizes: InputSizeType;
 }
 

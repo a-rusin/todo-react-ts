@@ -12,7 +12,7 @@ interface CreateUpdateTagFormProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleReset: () => void;
   errors?: ValidatorResult;
-  isLoading?: boolean;
+  isLoading?: boolean | string;
   mode: CreateAndUpateFormType;
   inputSizes: InputSizeType;
 }

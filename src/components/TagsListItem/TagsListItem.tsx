@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { DeleteButton } from "../DeleteButton/DeleteButton";
 import { EditButton } from "../EditButton/EditButton";
 import "./TagsListItem.css";
@@ -6,6 +6,9 @@ import { Tag } from "../../models/Tags";
 import { ValidatorConfig } from "../../models/ValidatorConfig";
 import { useForm } from "../../hooks/useForm";
 import { CreateUpdateTagForm } from "../CreateUpdateTagForm/CreateUpdateTagForm";
+import { nanoid } from "nanoid";
+import { TagsContext } from "../../context/TagsContext";
+import { isLoadingValue } from "../../utils/isLoadingValue";
 
 interface TagsListItemProps {
   tag: Tag;
@@ -24,6 +27,14 @@ const validatorConfig: ValidatorConfig = {
 export const TagsListItem = ({ tag }: TagsListItemProps) => {
   const [editMode, setIsEditMode] = useState(false);
 
+  const tagsContext = useContext(TagsContext);
+
+  if (!tagsContext) {
+    throw new Error("TagsProvider not found");
+  }
+
+  const { createUpdateTags, isLoading } = tagsContext;
+
   const { formValue, handleChange, handleReset, handleSubmit, errors } =
     useForm<Tag>({
       defaultValue,
@@ -32,16 +43,26 @@ export const TagsListItem = ({ tag }: TagsListItemProps) => {
     });
 
   function onSubmit(data: Tag) {
-    console.log(data);
+    const updatedData: Required<Tag> = {
+      title: data.title,
+      createdAt: Date.now().toString(),
+      id: tag.id!,
+    };
+    createUpdateTags(updatedData, "edit-item", () => {
+      setIsEditMode(false);
+    });
   }
 
   const handleClickEdit = () => {
-    setIsEditMode(true);
+    setIsEditMode((prev) => !prev);
+    handleChange({ name: "title", value: tag.title });
   };
 
   const handleClickDelete = (id: string | undefined) => {
     console.log(id);
   };
+
+  const isLoadingCreateUpdate = isLoadingValue(isLoading.createUpdate);
 
   return (
     <li className="tags-item">
@@ -55,7 +76,7 @@ export const TagsListItem = ({ tag }: TagsListItemProps) => {
               handleSubmit={handleSubmit}
               mode="edit-item"
               errors={errors}
-              isLoading={false}
+              isLoading={isLoadingCreateUpdate}
               inputSizes="l"
             />
           ) : (
