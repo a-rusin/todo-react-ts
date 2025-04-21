@@ -167,12 +167,6 @@
   height: 100%;
 }
 
-.todo-item-action-btn-edit {
-  background-color: rgb(51, 153, 255);
-  background-image: url("../../assets/icons/edit.svg");
-  background-size: 40%;
-}
-
 .todo-item-action-btn-fav {
   background-color: rgb(197, 145, 0);
 }

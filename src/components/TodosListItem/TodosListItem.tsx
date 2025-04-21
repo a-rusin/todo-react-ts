@@ -7,6 +7,8 @@ import { TodosContext } from "../../context/TodosContext";
 import { LoaderInline } from "../LoaderInline/LoaderInline";
 import { isLoadingValue } from "../../utils/isLoadingValue";
 import { getCurrentDate } from "../../utils/getCurrentDate";
+import { EditButton } from "../EditButton/EditButton";
+import { DeleteButton } from "../DeleteButton/DeleteButton";
 
 export const TodosListItem = ({ todo }: { todo: Todo }) => {
   const navigate = useNavigate();
@@ -29,6 +31,16 @@ export const TodosListItem = ({ todo }: { todo: Todo }) => {
       "edit",
       false
     );
+  };
+
+  const handleClickEdit = (id: string | undefined) => {
+    navigate("/todos/edit/" + id, {
+      state: { from: location.pathname },
+    });
+  };
+
+  const handleClickDelete = (id: string | undefined) => {
+    deleteTodos(id!, false);
   };
 
   const isLoadingDelete = isLoadingValue(isLoading.deleteItem);
@@ -96,24 +108,12 @@ export const TodosListItem = ({ todo }: { todo: Todo }) => {
               ></span>
             )}
           </button>
-          <button
-            className="todo-item-action-btn todo-item-action-btn-edit"
-            onClick={() =>
-              navigate("/todos/edit/" + todo.id, {
-                state: { from: location.pathname },
-              })
-            }
-          ></button>
-          <button
-            className={"todo-item-action-btn todo-item-action-btn-delete"}
-            onClick={() => deleteTodos(todo.id!, false)}
-          >
-            {todo.id === isLoadingDelete ? (
-              <LoaderInline />
-            ) : (
-              <span className="todo-item-action-btn-delete-icon"></span>
-            )}
-          </button>
+          <EditButton handleClick={handleClickEdit} id={todo.id} />
+          <DeleteButton
+            handleClick={handleClickDelete}
+            id={todo.id}
+            isLoading={isLoadingDelete}
+          />
         </div>
       </div>
     </li>
