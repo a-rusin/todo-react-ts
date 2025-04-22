@@ -1,4 +1,4 @@
-import { ReactNode, useContext } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Navigate, Outlet } from "react-router-dom";
 import { LoaderInline } from "../LoaderInline/LoaderInline";

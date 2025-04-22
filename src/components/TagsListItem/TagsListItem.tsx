@@ -33,7 +33,7 @@ export const TagsListItem = ({ tag }: TagsListItemProps) => {
     throw new Error("TagsProvider not found");
   }
 
-  const { createUpdateTags, isLoading } = tagsContext;
+  const { createUpdateTags, isLoading, deleteTag } = tagsContext;
 
   const { formValue, handleChange, handleReset, handleSubmit, errors } =
     useForm<Tag>({
@@ -59,13 +59,16 @@ export const TagsListItem = ({ tag }: TagsListItemProps) => {
   };
 
   const handleClickDelete = (id: string | undefined) => {
-    console.log(id);
+    if (id) {
+      deleteTag(id);
+    }
   };
 
   const isLoadingCreateUpdate = isLoadingValue(isLoading.createUpdate);
+  const isLoadingDelete = isLoadingValue(isLoading.delete);
 
   return (
-    <li className="tags-item">
+    <li className={"tags-item " + (isLoadingDelete && " proccess")}>
       <div className="tags-wrapper">
         <div className="tags-title">
           {editMode ? (
@@ -87,8 +90,8 @@ export const TagsListItem = ({ tag }: TagsListItemProps) => {
           <EditButton handleClick={handleClickEdit} />
           <DeleteButton
             handleClick={handleClickDelete}
-            id={"345"}
-            isLoading={false}
+            id={tag.id}
+            isLoading={isLoadingDelete}
           />
         </div>
       </div>

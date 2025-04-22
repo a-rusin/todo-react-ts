@@ -14,11 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <BrowserRouter>
     <NavigateContextProvider>
-      <TodosProvider>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </TodosProvider>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </NavigateContextProvider>
   </BrowserRouter>
 );

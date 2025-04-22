@@ -13,11 +13,11 @@ export const TagsContext = createContext<TagsContextContext | undefined>(
   undefined
 );
 
-interface TagsContextProviderProps {
+interface TagsProviderProps {
   children: ReactNode;
 }
 
-export const TagsContextProvider = ({ children }: TagsContextProviderProps) => {
+export const TagsProvider = ({ children }: TagsProviderProps) => {
   const [tags, setTags] = useState<Tag[] | undefined>();
   const [isLoading, setIsLoading] = useState<TagsContextContextLoading>({
     createUpdate: false,
@@ -78,9 +78,30 @@ export const TagsContextProvider = ({ children }: TagsContextProviderProps) => {
     }
   };
 
+  const deleteTag = async (tagId: string) => {
+    setIsLoading((prev) => ({ ...prev, delete: { id: tagId } }));
+
+    try {
+      const data = await tagsService.delete(tagId, currentUser!);
+      if (data === null) {
+        setTags((prev) => prev?.filter((t) => t.id !== tagId));
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading((prev) => ({ ...prev, delete: false }));
+    }
+  };
+
   return (
     <TagsContext.Provider
-      value={{ tags, isLoading, handleClickAddFirstTag, createUpdateTags }}
+      value={{
+        tags,
+        isLoading,
+        handleClickAddFirstTag,
+        createUpdateTags,
+        deleteTag,
+      }}
     >
       {children}
     </TagsContext.Provider>

@@ -21,4 +21,5 @@ export interface TagsContextContext {
     mode: CreateAndUpateFormType,
     callback: () => void
   ) => void;
+  deleteTag: (tagId: string) => void;
 }

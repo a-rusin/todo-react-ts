@@ -2,6 +2,10 @@
   padding: 24rem;
 }
 
+.tags-item.proccess {
+  opacity: 0.5;
+}
+
 .tags-item:not(:last-child) {
   border-bottom: 1rem solid rgba(61, 71, 81, 0.3);
 }

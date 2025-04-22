@@ -17,6 +17,12 @@ export const TagsList = () => {
 
   const isLoadingCreateUpdate = isLoadingValue(isLoading.createUpdate);
 
+  const sortedComments =
+    tags &&
+    tags.sort((a, b) => {
+      return Number(b.createdAt) - Number(a.createdAt);
+    });
+
   if (isLoading.get) {
     return (
       <div className="main-page-container auth-container-loading">
@@ -26,12 +32,22 @@ export const TagsList = () => {
         <p>Загрузка тегов...</p>
       </div>
     );
-  } else if (Array.isArray(tags) && tags.length !== 0) {
+  } else if (Array.isArray(sortedComments) && sortedComments.length !== 0) {
     return (
       <ul className="tags-list">
-        {tags.map((tag) => (
+        {sortedComments.map((tag) => (
           <TagsListItem key={tag.id} tag={tag} />
         ))}
+        <li className="tags-item">
+          <Button
+            cssType="primary"
+            inputSizes="l"
+            label="Добавить тег"
+            type="button"
+            onClick={handleClickAddFirstTag}
+            isLoading={isLoadingCreateUpdate}
+          />
+        </li>
       </ul>
     );
   } else {
