@@ -3,7 +3,7 @@ import { CreateAndUpdateTodoForm } from "../components/CreateUpdateTodoForm/Crea
 import { useForm } from "../hooks/useForm";
 import { SingleSelectOptions } from "../models/MultiSingleSelectOptions";
 import { ValidatorConfig } from "../models/ValidatorConfig";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import { TodosContext } from "../context/TodosContext";
 import { LoaderInline } from "../components/LoaderInline/LoaderInline";
 import { Todo, TodosToServer } from "../models/Todo";
@@ -51,18 +51,30 @@ export const TodoEditItemPage = () => {
     return () => resetTodo();
   }, [id]);
 
+  const defaultValue: TodosToServer | undefined = useMemo(
+    () =>
+      todo
+        ? {
+            ...todo,
+            dateDeadline: formatMillisecondsToDateString(todo.dateDeadline),
+          }
+        : undefined,
+    [todo]
+  );
+
   const { formValue, handleChange, handleReset, handleSubmit, errors } =
     useForm<TodosToServer>({
-      defaultValue: todo && {
-        ...todo,
-        createdDate: formatMillisecondsToDateString(todo.createdDate),
-      },
+      defaultValue,
       onSubmit,
       validatorConfig,
     });
 
   function onSubmit(data: TodosToServer) {
-    createUpdateTodos(data, "editForm", "edit", true);
+    const updatedData: TodosToServer = {
+      ...data,
+      dateDeadline: new Date(data.dateDeadline).getTime().toString(),
+    };
+    createUpdateTodos(updatedData, "editForm", "edit", true);
   }
 
   const multiSelectOptions: SingleSelectOptions<string>[] | undefined =
