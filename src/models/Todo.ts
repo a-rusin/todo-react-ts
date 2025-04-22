@@ -1,7 +1,6 @@
-import {
-  CreateAndUpateFormType,
-  CreateAndUpateFormValue,
-} from "./CreateAndUpdate";
+import { PrioretyArray } from "../constans/prioretyObj";
+import { CreateAndUpateFormType } from "./CreateAndUpdateFromTypes";
+import { SingleSelectOptions } from "./MultiSingleSelectOptions";
 
 export enum TodoPriorety {
   lite = "lite",
@@ -9,11 +8,37 @@ export enum TodoPriorety {
   dangerous = "dangerous",
 }
 
-export interface Todo extends CreateAndUpateFormValue {
+export interface CreateAndUpateTodoFormValue {
+  title: string;
+  description: string;
+  dateDeadline: string;
+  priorety: PrioretyArray | null;
+  favourite: boolean;
+  tags: string[] | undefined;
+}
+
+export interface Todo extends CreateAndUpateTodoFormValue {
   id?: string;
   userId: string;
   createdDate: string;
   isDone: boolean;
+}
+
+export type TodosToServer = Omit<Todo, "tags"> & {
+  tags: string[] | undefined;
+};
+
+export interface Test {
+  id?: string;
+  userId: string;
+  createdDate: string;
+  isDone: boolean;
+  title: string;
+  description: string;
+  dateDeadline: string;
+  priorety: PrioretyArray | null;
+  favourite: boolean;
+  tags: string[] | undefined;
 }
 
 export interface TodosContextLoading {
@@ -28,12 +53,12 @@ export interface TodosContextLoading {
 }
 
 export type TodosContextType = {
-  todos: Todo[] | undefined;
-  todo: Todo | undefined;
+  todos: TodosToServer[] | undefined;
+  todo: TodosToServer | undefined;
   isLoading: TodosContextLoading;
   getTodos: () => void;
   createUpdateTodos: (
-    payload: Todo,
+    payload: TodosToServer,
     loadingType: keyof TodosContextLoading,
     mode?: CreateAndUpateFormType,
     redirect?: boolean

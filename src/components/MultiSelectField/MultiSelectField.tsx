@@ -5,16 +5,10 @@ import { useState } from "react";
 
 interface MultiSelectFieldProps {
   label: string;
-  onChange: ({
-    name,
-    value,
-  }: {
-    name: string;
-    value: readonly SingleSelectOptions[];
-  }) => void;
-  value: SingleSelectOptions[] | undefined | null;
+  onChange: ({ name, value }: { name: string; value: string[] }) => void;
+  value: SingleSelectOptions<string>[] | undefined;
   name: string;
-  options: SingleSelectOptions[] | undefined;
+  options: SingleSelectOptions<string>[] | undefined;
   placeholder: string;
   errors?: string[];
 }
@@ -30,8 +24,8 @@ export const MultiSelectField = ({
 }: MultiSelectFieldProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleChange = (newValue: readonly SingleSelectOptions[]) => {
-    onChange({ name: name, value: newValue });
+  const handleChange = (newValue: readonly SingleSelectOptions<string>[]) => {
+    onChange({ name: name, value: newValue.map((item) => item.value) });
   };
 
   const toggleMenu = () => {
@@ -44,7 +38,7 @@ export const MultiSelectField = ({
       onClick={toggleMenu}
     >
       <label className="multiselect-label">{label}:</label>
-      <Select<SingleSelectOptions, true>
+      <Select<SingleSelectOptions<string>, true>
         defaultValue={[]}
         isMulti
         name={name}

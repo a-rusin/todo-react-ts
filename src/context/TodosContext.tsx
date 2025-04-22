@@ -1,9 +1,13 @@
 import { ReactNode, useContext, useEffect, useState } from "react";
 import { createContext } from "react";
-import { Todo, TodosContextLoading, TodosContextType } from "../models/Todo";
+import {
+  TodosContextLoading,
+  TodosContextType,
+  TodosToServer,
+} from "../models/Todo";
 import { todosService } from "../services/todos.service";
 import { useAppNavigate } from "../hooks/useAppNavigate";
-import { CreateAndUpateFormType } from "../models/CreateAndUpdate";
+import { CreateAndUpateFormType } from "../models/CreateAndUpdateFromTypes";
 import { useLocation } from "react-router-dom";
 import localStorageService from "../services/localStorage.service";
 
@@ -16,8 +20,8 @@ interface TodosProviderProps {
 }
 
 export const TodosProvider = ({ children }: TodosProviderProps) => {
-  const [todos, setTodos] = useState<Todo[] | undefined>([]);
-  const [todo, setTodo] = useState<Todo | undefined>();
+  const [todos, setTodos] = useState<TodosToServer[] | undefined>([]);
+  const [todo, setTodo] = useState<TodosToServer | undefined>();
   const [isLoading, setIsLoading] = useState<TodosContextLoading>({
     createForm: false,
     editForm: false,
@@ -44,7 +48,7 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
   const getTodos = async () => {
     try {
       setIsLoading((prev) => ({ ...prev, getItems: true }));
-      const data = await todosService.get<Todo[]>(currentUser!);
+      const data = await todosService.get<TodosToServer[]>(currentUser!);
       setTodos(data);
     } catch (error) {
       console.log(error);
@@ -56,7 +60,7 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
   const getTodoById = async (id: string) => {
     try {
       setIsLoading((prev) => ({ ...prev, getItem: true }));
-      const data = await todosService.getById<Todo>(id, currentUser!);
+      const data = await todosService.getById<TodosToServer>(id, currentUser!);
       setTodo(data);
     } catch (error) {
       console.log(error);
@@ -66,7 +70,7 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
   };
 
   const createUpdateTodos = async (
-    payload: Todo,
+    payload: TodosToServer,
     loadingType: keyof TodosContextLoading,
     mode?: CreateAndUpateFormType,
     redirect?: boolean
@@ -81,8 +85,8 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
         }));
       }
 
-      const data = await todosService.createAndUpdate<Todo>(
-        payload,
+      const data = await todosService.createAndUpdate<TodosToServer>(
+        payload!,
         currentUser!
       );
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { HandleChangeTypes } from "../models/HandleChange";
 import { validate } from "../utils/validate";
 import { ValidatorConfig, ValidatorResult } from "../models/ValidatorConfig";
-import { CreateAndUpateFormType } from "../models/CreateAndUpdate";
+import { CreateAndUpateFormType } from "../models/CreateAndUpdateFromTypes";
 
 interface useFormProps<T> {
   defaultValue: T | undefined;

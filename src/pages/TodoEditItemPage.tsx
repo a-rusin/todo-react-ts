@@ -6,17 +6,13 @@ import { ValidatorConfig } from "../models/ValidatorConfig";
 import { useContext, useEffect } from "react";
 import { TodosContext } from "../context/TodosContext";
 import { LoaderInline } from "../components/LoaderInline/LoaderInline";
-import { Todo } from "../models/Todo";
+import { Todo, TodosToServer } from "../models/Todo";
 import { TagsContext } from "../context/TagsContext";
+import { formatMillisecondsToDateString } from "../utils/formatMillisecondsToDateString";
 
 type RouteParams = {
   id: string;
 };
-
-const mockDataOptions: SingleSelectOptions[] = [
-  { label: "test", value: "test" },
-  { label: "test2", value: "test2" },
-];
 
 const validatorConfig: ValidatorConfig = {
   title: {
@@ -56,13 +52,16 @@ export const TodoEditItemPage = () => {
   }, [id]);
 
   const { formValue, handleChange, handleReset, handleSubmit, errors } =
-    useForm<Todo>({
-      defaultValue: todo,
+    useForm<TodosToServer>({
+      defaultValue: todo && {
+        ...todo,
+        createdDate: formatMillisecondsToDateString(todo.createdDate),
+      },
       onSubmit,
       validatorConfig,
     });
 
-  function onSubmit(data: Todo) {
+  function onSubmit(data: TodosToServer) {
     createUpdateTodos(data, "editForm", "edit", true);
   }
 

@@ -1,11 +1,14 @@
+import { useContext } from "react";
 import { prioretyArray } from "../../constans/prioretyObj";
-import {
-  CreateAndUpateFormType,
-  CreateAndUpateFormValue,
-} from "../../models/CreateAndUpdate";
+import { TagsContext } from "../../context/TagsContext";
+import { CreateAndUpateFormType } from "../../models/CreateAndUpdateFromTypes";
 import { HandleChangeTypes } from "../../models/HandleChange";
 import { SingleSelectOptions } from "../../models/MultiSingleSelectOptions";
-import { Todo } from "../../models/Todo";
+import {
+  CreateAndUpateTodoFormValue,
+  Todo,
+  TodosToServer,
+} from "../../models/Todo";
 import { ValidatorResult } from "../../models/ValidatorConfig";
 import { Button } from "../Button/Button";
 import { CheckBoxFiled } from "../CheckBoxField/CheckBoxField";
@@ -14,9 +17,10 @@ import { InputField } from "../InputField/InputField";
 import { MultiSelectField } from "../MultiSelectField/MultiSelectField";
 import { SingleSelectField } from "../SingleSelectField/SingleSelectField";
 import { TextAreaField } from "../TextAreaField/TextAreaField";
+import { prepareTags } from "../../utils/prepareDataForClient";
 
 interface CreateAndUpdateTodoFormProps {
-  formValue: CreateAndUpateFormValue | Todo | undefined;
+  formValue: CreateAndUpateTodoFormValue | undefined;
   handleChange: ({
     name,
     value,
@@ -42,6 +46,19 @@ export const CreateAndUpdateTodoForm = ({
   isLoading,
   mode,
 }: CreateAndUpdateTodoFormProps) => {
+  const tagsContext = useContext(TagsContext);
+
+  if (!tagsContext) {
+    throw new Error("TagsProvider not found");
+  }
+
+  const { tags } = tagsContext;
+
+  let updatedTags: SingleSelectOptions<string>[] = prepareTags(
+    formValue?.tags,
+    tags
+  );
+
   return (
     <form className="form-create-update" onSubmit={handleSubmit}>
       <InputField
@@ -85,7 +102,7 @@ export const CreateAndUpdateTodoForm = ({
       <MultiSelectField
         label="Теги"
         onChange={handleChange}
-        value={formValue?.tags}
+        value={updatedTags}
         name="tags"
         options={options}
         placeholder="Выберите теги..."

@@ -1,4 +1,4 @@
-import { Todo } from "../models/Todo";
+import { Todo, TodosToServer } from "../models/Todo";
 import { httpService } from "./http.service";
 
 const apiEndPoint = "todos/";
@@ -14,7 +14,7 @@ export const todosService = {
     const { data } = await httpService.get<T>(url);
     return data;
   },
-  createAndUpdate: async <T>(payload: Todo, userId: string) => {
+  createAndUpdate: async <T>(payload: TodosToServer, userId: string) => {
     const url = `${apiEndPoint + userId}/${payload.id}`;
 
     const { data } = await httpService.put<T>(url, payload);

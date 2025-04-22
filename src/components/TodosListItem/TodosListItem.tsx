@@ -1,7 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import "./TodosListItem.css";
 import { Link } from "react-router-dom";
-import { Todo, TodoPriorety, TodosContextLoading } from "../../models/Todo";
+import {
+  Todo,
+  TodoPriorety,
+  TodosContextLoading,
+  TodosToServer,
+} from "../../models/Todo";
 import { useContext } from "react";
 import { TodosContext } from "../../context/TodosContext";
 import { LoaderInline } from "../LoaderInline/LoaderInline";
@@ -9,18 +14,23 @@ import { isLoadingValue } from "../../utils/isLoadingValue";
 import { getCurrentDate } from "../../utils/getCurrentDate";
 import { EditButton } from "../EditButton/EditButton";
 import { DeleteButton } from "../DeleteButton/DeleteButton";
+import { TagsContext } from "../../context/TagsContext";
+import { SingleSelectOptions } from "../../models/MultiSingleSelectOptions";
+import { prepareTags } from "../../utils/prepareDataForClient";
 
-export const TodosListItem = ({ todo }: { todo: Todo }) => {
+export const TodosListItem = ({ todo }: { todo: TodosToServer }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const todosContext = useContext(TodosContext);
+  const tagsContext = useContext(TagsContext);
 
-  if (!todosContext) {
-    throw new Error("TodoProvider not found");
+  if (!todosContext || !tagsContext) {
+    throw new Error("TodoProvider or TagsContext not found");
   }
 
   const { deleteTodos, isLoading, createUpdateTodos } = todosContext;
+  const { tags } = tagsContext;
 
   const handleClickEditTodoState = (prop: "isDone" | "favourite") => {
     const loadingType = `${prop}Item` as keyof TodosContextLoading;
@@ -46,6 +56,8 @@ export const TodosListItem = ({ todo }: { todo: Todo }) => {
   const isLoadingDelete = isLoadingValue(isLoading.deleteItem);
   const isLoadingFav = isLoadingValue(isLoading.favouriteItem);
   const isLoadingIsDone = isLoadingValue(isLoading.isDoneItem);
+
+  let updatedTags: SingleSelectOptions<string>[] = prepareTags(todo.tags, tags);
 
   return (
     <li
@@ -77,9 +89,9 @@ export const TodosListItem = ({ todo }: { todo: Todo }) => {
           </div>
           <div className="todo-item-details">
             <p className="todo-item-description">{todo.description}</p>
-            {todo.tags && (
+            {updatedTags && (
               <ul className="todo-item-tags">
-                {todo.tags.map((tag) => (
+                {updatedTags.map((tag) => (
                   <li key={tag.value} className="todo-item-tag">
                     #{tag.label}
                   </li>

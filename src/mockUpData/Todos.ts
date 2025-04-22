@@ -12,7 +12,7 @@ export const todoMockUp: Todo[] = [
     dateDeadline: getRandomFutureDate(1, 7),
     priorety: { value: TodoPriorety.lite, label: "Низкий" },
     favourite: false,
-    tags: null,
+    tags: undefined,
     isDone: false,
   },
   {
@@ -25,7 +25,7 @@ export const todoMockUp: Todo[] = [
     dateDeadline: getRandomFutureDate(1, 7),
     priorety: { value: TodoPriorety.medium, label: "Средний" },
     favourite: true,
-    tags: null,
+    tags: undefined,
     isDone: false,
   },
   {
@@ -38,7 +38,7 @@ export const todoMockUp: Todo[] = [
     dateDeadline: getRandomFutureDate(1, 7),
     priorety: { value: TodoPriorety.dangerous, label: "Высокий" },
     favourite: false,
-    tags: null,
+    tags: undefined,
     isDone: false,
   },
   {
@@ -51,7 +51,7 @@ export const todoMockUp: Todo[] = [
     dateDeadline: getRandomFutureDate(1, 7),
     priorety: { value: TodoPriorety.medium, label: "Средний" },
     favourite: true,
-    tags: null,
+    tags: undefined,
     isDone: false,
   },
   {
@@ -64,7 +64,7 @@ export const todoMockUp: Todo[] = [
     dateDeadline: getRandomFutureDate(1, 7),
     priorety: { value: TodoPriorety.lite, label: "Низкий" },
     favourite: false,
-    tags: null,
+    tags: undefined,
     isDone: false,
   },
   {
@@ -77,7 +77,7 @@ export const todoMockUp: Todo[] = [
     dateDeadline: getRandomFutureDate(1, 7),
     priorety: { value: TodoPriorety.dangerous, label: "Высокий" },
     favourite: true,
-    tags: null,
+    tags: undefined,
     isDone: false,
   },
   {
@@ -90,7 +90,7 @@ export const todoMockUp: Todo[] = [
     dateDeadline: getRandomFutureDate(1, 7),
     priorety: { value: TodoPriorety.lite, label: "Низкий" },
     favourite: false,
-    tags: null,
+    tags: undefined,
     isDone: false,
   },
   {
@@ -103,7 +103,7 @@ export const todoMockUp: Todo[] = [
     dateDeadline: getRandomFutureDate(1, 7),
     priorety: { value: TodoPriorety.medium, label: "Средний" },
     favourite: true,
-    tags: null,
+    tags: undefined,
     isDone: false,
   },
   {
@@ -116,7 +116,7 @@ export const todoMockUp: Todo[] = [
     dateDeadline: getRandomFutureDate(1, 7),
     priorety: { value: TodoPriorety.lite, label: "Низкий" },
     favourite: false,
-    tags: null,
+    tags: undefined,
     isDone: false,
   },
   {
@@ -129,7 +129,7 @@ export const todoMockUp: Todo[] = [
     dateDeadline: getRandomFutureDate(1, 7),
     priorety: { value: TodoPriorety.dangerous, label: "Высокий" },
     favourite: false,
-    tags: null,
+    tags: undefined,
     isDone: false,
   },
 ];

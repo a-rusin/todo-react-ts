@@ -5,4 +5,5 @@ export type HandleChangeTypes =
   | boolean
   | readonly SingleSelectOptions[]
   | SingleSelectOptions
-  | null;
+  | null
+  | string[];

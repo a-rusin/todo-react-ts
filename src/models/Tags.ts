@@ -1,4 +1,4 @@
-import { CreateAndUpateFormType } from "./CreateAndUpdate";
+import { CreateAndUpateFormType } from "./CreateAndUpdateFromTypes";
 
 export interface Tag {
   id?: string;

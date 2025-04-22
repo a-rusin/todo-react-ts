@@ -1,16 +1,20 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Todo, TodosContextLoading } from "../../models/Todo";
-import { CreateAndUpateFormType } from "../../models/CreateAndUpdate";
+import { Todo, TodosContextLoading, TodosToServer } from "../../models/Todo";
+import { CreateAndUpateFormType } from "../../models/CreateAndUpdateFromTypes";
 import { isLoadingValue } from "../../utils/isLoadingValue";
 import { getCurrentDate } from "../../utils/getCurrentDate";
 import "./TodoItemDetails.css";
+import { SingleSelectOptions } from "../../models/MultiSingleSelectOptions";
+import { prepareTags } from "../../utils/prepareDataForClient";
+import { useContext } from "react";
+import { TagsContext } from "../../context/TagsContext";
 
 interface TodoItemDetailsProps {
-  todo: Todo;
+  todo: TodosToServer;
   deleteTodos: (id: string, redirect?: boolean) => void;
   isLoading: TodosContextLoading;
   createUpdateTodos: (
-    payload: Todo,
+    payload: TodosToServer,
     loadingType: keyof TodosContextLoading,
     mode?: CreateAndUpateFormType,
     redirect?: boolean
@@ -23,6 +27,14 @@ export const TodoItemDetails = ({
   deleteTodos,
   isLoading,
 }: TodoItemDetailsProps) => {
+  const tagsContext = useContext(TagsContext);
+
+  if (!tagsContext) {
+    throw new Error("TagsProvider not found");
+  }
+
+  const { tags } = tagsContext;
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -41,6 +53,8 @@ export const TodoItemDetails = ({
       false
     );
   };
+
+  let updatedTags: SingleSelectOptions<string>[] = prepareTags(todo.tags, tags);
 
   return (
     <div className={"todo-details-container " + (todo.isDone && "done")}>
@@ -110,9 +124,9 @@ export const TodoItemDetails = ({
         </li>
         <li className="todo-details-list-item">
           <div className="todo-details-label">Теги:</div>
-          {todo.tags && (
+          {updatedTags && (
             <ul className="todo-details-tags-list">
-              {todo.tags.map((tag) => (
+              {updatedTags.map((tag) => (
                 <li key={tag.value} className="todo-details-tags-list-item">
                   #{tag.label}
                 </li>

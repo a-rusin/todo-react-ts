@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
 import { SingleSelectOptions } from "../models/MultiSingleSelectOptions";
 import { CreateAndUpdateTodoForm } from "../components/CreateUpdateTodoForm/CreateUpdateTodoForm";
-import { CreateAndUpateFormValue } from "../models/CreateAndUpdate";
 import { useForm } from "../hooks/useForm";
 import { ValidatorConfig } from "../models/ValidatorConfig";
-import { Todo } from "../models/Todo";
+import { CreateAndUpateTodoFormValue, TodosToServer } from "../models/Todo";
 import { nanoid } from "nanoid";
 
 import { useContext } from "react";
@@ -12,13 +11,13 @@ import { TodosContext } from "../context/TodosContext";
 import { AuthContext } from "../context/AuthContext";
 import { TagsContext } from "../context/TagsContext";
 
-const defaultValue: CreateAndUpateFormValue = {
+const defaultValue: CreateAndUpateTodoFormValue = {
   title: "",
   description: "",
   dateDeadline: "",
   priorety: null,
   favourite: false,
-  tags: null,
+  tags: undefined,
 };
 
 const validatorConfig: ValidatorConfig = {
@@ -52,14 +51,14 @@ export const TodoCreatePage = () => {
   const { tags, isLoading: isLoadingTags } = tagsContext;
 
   const { formValue, handleChange, handleReset, handleSubmit, errors } =
-    useForm<CreateAndUpateFormValue>({
+    useForm<CreateAndUpateTodoFormValue>({
       defaultValue,
       onSubmit,
       validatorConfig,
     });
 
-  function onSubmit(data: CreateAndUpateFormValue) {
-    const updatedData: Todo = {
+  function onSubmit(data: CreateAndUpateTodoFormValue) {
+    const updatedData: TodosToServer = {
       ...data,
       id: nanoid(),
       userId: currentUser!,

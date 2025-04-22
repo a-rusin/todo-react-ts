@@ -1,4 +1,4 @@
-import { CreateAndUpateFormType } from "../../models/CreateAndUpdate";
+import { CreateAndUpateFormType } from "../../models/CreateAndUpdateFromTypes";
 import { InputSizeType } from "../../models/Form";
 import { Tag } from "../../models/Tags";
 import { ValidatorResult } from "../../models/ValidatorConfig";
