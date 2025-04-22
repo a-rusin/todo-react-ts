@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { SingleSelectOptions } from "../models/MultiSingleSelectOptions";
-import { CreateAndUpdateForm } from "../components/CreateUpdateTodoForm/CreateUpdateTodoForm";
+import { CreateAndUpdateTodoForm } from "../components/CreateUpdateTodoForm/CreateUpdateTodoForm";
 import { CreateAndUpateFormValue } from "../models/CreateAndUpdate";
 import { useForm } from "../hooks/useForm";
 import { ValidatorConfig } from "../models/ValidatorConfig";
@@ -10,11 +10,7 @@ import { nanoid } from "nanoid";
 import { useContext } from "react";
 import { TodosContext } from "../context/TodosContext";
 import { AuthContext } from "../context/AuthContext";
-
-const mockDataOptions: SingleSelectOptions[] = [
-  { label: "test", value: "test" },
-  { label: "test2", value: "test2" },
-];
+import { TagsContext } from "../context/TagsContext";
 
 const defaultValue: CreateAndUpateFormValue = {
   title: "",
@@ -43,13 +39,17 @@ const validatorConfig: ValidatorConfig = {
 export const TodoCreatePage = () => {
   const todosContext = useContext(TodosContext);
   const authContext = useContext(AuthContext);
+  const tagsContext = useContext(TagsContext);
 
-  if (!todosContext || !authContext) {
-    throw new Error("TodoProvider or AuthProvider not found");
+  if (!todosContext || !authContext || !tagsContext) {
+    throw new Error(
+      "TodoProvider or AuthProvider or TagsProvider or not found"
+    );
   }
 
-  const { createUpdateTodos, isLoading } = todosContext;
+  const { createUpdateTodos, isLoading: isLoadingTodo } = todosContext;
   const { currentUser } = authContext;
+  const { tags, isLoading: isLoadingTags } = tagsContext;
 
   const { formValue, handleChange, handleReset, handleSubmit, errors } =
     useForm<CreateAndUpateFormValue>({
@@ -71,20 +71,26 @@ export const TodoCreatePage = () => {
     createUpdateTodos(updatedData, "createForm", "create", true);
   }
 
+  const multiSelectOptions: SingleSelectOptions<string>[] | undefined =
+    tags?.map((tag) => ({
+      label: tag.title,
+      value: tag.id!,
+    }));
+
   return (
     <div className="container">
       <h1 className="main-title">Создание новой задачи</h1>
       <Link to="/todos" className="main-url main-url-spacing">
         К списку задач
       </Link>
-      <CreateAndUpdateForm
+      <CreateAndUpdateTodoForm
         formValue={formValue}
         handleChange={handleChange}
         handleReset={handleReset}
         handleSubmit={handleSubmit}
-        options={mockDataOptions}
+        options={multiSelectOptions}
         errors={errors}
-        isLoading={isLoading.createForm}
+        isLoading={isLoadingTodo.createForm}
         mode="create"
       />
     </div>

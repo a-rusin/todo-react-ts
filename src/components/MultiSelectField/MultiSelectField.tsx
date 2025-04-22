@@ -14,7 +14,7 @@ interface MultiSelectFieldProps {
   }) => void;
   value: SingleSelectOptions[] | undefined | null;
   name: string;
-  options: SingleSelectOptions[];
+  options: SingleSelectOptions[] | undefined;
   placeholder: string;
   errors?: string[];
 }

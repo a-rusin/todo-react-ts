@@ -3,6 +3,8 @@ import {
   CreateAndUpateFormType,
   CreateAndUpateFormValue,
 } from "../../models/CreateAndUpdate";
+import { HandleChangeTypes } from "../../models/HandleChange";
+import { SingleSelectOptions } from "../../models/MultiSingleSelectOptions";
 import { Todo } from "../../models/Todo";
 import { ValidatorResult } from "../../models/ValidatorConfig";
 import { Button } from "../Button/Button";
@@ -13,18 +15,24 @@ import { MultiSelectField } from "../MultiSelectField/MultiSelectField";
 import { SingleSelectField } from "../SingleSelectField/SingleSelectField";
 import { TextAreaField } from "../TextAreaField/TextAreaField";
 
-interface CreateAndUpdateFormProps {
+interface CreateAndUpdateTodoFormProps {
   formValue: CreateAndUpateFormValue | Todo | undefined;
-  handleChange: any;
+  handleChange: ({
+    name,
+    value,
+  }: {
+    name: string;
+    value: HandleChangeTypes;
+  }) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleReset: () => void;
-  options: any;
+  options: SingleSelectOptions<string>[] | undefined;
   errors?: ValidatorResult;
   isLoading?: boolean;
   mode: CreateAndUpateFormType;
 }
 
-export const CreateAndUpdateForm = ({
+export const CreateAndUpdateTodoForm = ({
   formValue,
   handleChange,
   options,
@@ -33,7 +41,7 @@ export const CreateAndUpdateForm = ({
   errors,
   isLoading,
   mode,
-}: CreateAndUpdateFormProps) => {
+}: CreateAndUpdateTodoFormProps) => {
   return (
     <form className="form-create-update" onSubmit={handleSubmit}>
       <InputField

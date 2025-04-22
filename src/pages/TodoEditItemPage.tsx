@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { CreateAndUpdateForm } from "../components/CreateUpdateTodoForm/CreateUpdateTodoForm";
+import { CreateAndUpdateTodoForm } from "../components/CreateUpdateTodoForm/CreateUpdateTodoForm";
 import { useForm } from "../hooks/useForm";
 import { SingleSelectOptions } from "../models/MultiSingleSelectOptions";
 import { ValidatorConfig } from "../models/ValidatorConfig";
@@ -7,6 +7,7 @@ import { useContext, useEffect } from "react";
 import { TodosContext } from "../context/TodosContext";
 import { LoaderInline } from "../components/LoaderInline/LoaderInline";
 import { Todo } from "../models/Todo";
+import { TagsContext } from "../context/TagsContext";
 
 type RouteParams = {
   id: string;
@@ -34,13 +35,15 @@ const validatorConfig: ValidatorConfig = {
 
 export const TodoEditItemPage = () => {
   const todosContext = useContext(TodosContext);
+  const tagsContext = useContext(TagsContext);
 
-  if (!todosContext) {
-    throw new Error("TodoProvider not found");
+  if (!todosContext || !tagsContext) {
+    throw new Error("TodoProvider or TagsContext not found");
   }
 
   const { getTodoById, isLoading, todo, createUpdateTodos, resetTodo } =
     todosContext;
+  const { tags, isLoading: isLoadingTags } = tagsContext;
 
   const { id } = useParams<RouteParams>();
 
@@ -63,6 +66,12 @@ export const TodoEditItemPage = () => {
     createUpdateTodos(data, "editForm", "edit", true);
   }
 
+  const multiSelectOptions: SingleSelectOptions<string>[] | undefined =
+    tags?.map((tag) => ({
+      label: tag.title,
+      value: tag.id!,
+    }));
+
   return (
     <div className="container">
       <h1 className="main-title">Редактирование задачи</h1>
@@ -75,12 +84,12 @@ export const TodoEditItemPage = () => {
         </div>
       )}
       {!isLoading.getItem && todo && (
-        <CreateAndUpdateForm
+        <CreateAndUpdateTodoForm
           formValue={formValue}
           handleChange={handleChange}
           handleReset={handleReset}
           handleSubmit={handleSubmit}
-          options={mockDataOptions}
+          options={multiSelectOptions}
           errors={errors}
           isLoading={
             typeof isLoading.editForm === "boolean" ? isLoading.editForm : true
