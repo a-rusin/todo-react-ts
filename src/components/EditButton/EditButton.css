@@ -13,3 +13,11 @@
   background-image: url("../../assets/icons/edit.svg");
   background-size: 40%;
 }
+
+@media (max-width: 640px) {
+  .btn-edit {
+    flex: 0 0 35rem;
+    width: 35rem;
+    height: 35rem;
+  }
+}

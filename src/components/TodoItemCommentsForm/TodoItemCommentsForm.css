@@ -9,3 +9,19 @@
 .todo-comments-btn-submit {
   max-width: 200rem;
 }
+
+@media (max-width: 640px) {
+  .todo-comments-form {
+    padding-top: 12rem;
+  }
+
+  .todo-comments-form > *:not(:first-child) {
+    margin-top: 10rem;
+  }
+
+  .todo-comments-btn-submit {
+    max-width: none;
+    width: 100%;
+    height: 40rem !important;
+  }
+}

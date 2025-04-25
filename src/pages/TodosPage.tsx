@@ -23,19 +23,15 @@ export const TodosPage = () => {
         <Link to="/todos/create" className="main-url">
           Создать задачу
         </Link>
-        <div>|</div>
+        <div className="spacer">|</div>
         <Link to="/tags" className="main-url">
           Менеджер тегов
         </Link>
-        <div>|</div>
-        <div
-          className="main-url"
-          onClick={() => postMockUpData(todoMockUp)}
-          role="button"
-        >
+        <div className="spacer">|</div>
+        <div className="main-url" onClick={() => postMockUpData(todoMockUp)} role="button">
           Загрузить mockUpData Todo
         </div>
-        <div>|</div>
+        <div className="spacer">|</div>
         <div className="main-url" onClick={logOut} role="button">
           Выйти из аккаунта
         </div>

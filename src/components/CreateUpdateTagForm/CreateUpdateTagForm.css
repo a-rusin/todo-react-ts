@@ -11,3 +11,9 @@
 .form-tags > .btn {
   flex: 0 1 20%;
 }
+
+@media (max-width: 640px) {
+  .form-tags {
+    gap: 5rem;
+  }
+}

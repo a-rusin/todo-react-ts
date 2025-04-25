@@ -1,12 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import "./TodosListItem.css";
 import { Link } from "react-router-dom";
-import {
-  Todo,
-  TodoPriorety,
-  TodosContextLoading,
-  TodosToServer,
-} from "../../models/Todo";
+import { Todo, TodoPriorety, TodosContextLoading, TodosToServer } from "../../models/Todo";
 import { useContext } from "react";
 import { TodosContext } from "../../context/TodosContext";
 import { LoaderInline } from "../LoaderInline/LoaderInline";
@@ -35,12 +30,7 @@ export const TodosListItem = ({ todo }: { todo: TodosToServer }) => {
   const handleClickEditTodoState = (prop: "isDone" | "favourite") => {
     const loadingType = `${prop}Item` as keyof TodosContextLoading;
 
-    createUpdateTodos(
-      { ...todo, [prop]: !todo[prop] },
-      loadingType,
-      "edit",
-      false
-    );
+    createUpdateTodos({ ...todo, [prop]: !todo[prop] }, loadingType, "edit", false);
   };
 
   const handleClickEdit = (id: string | undefined) => {
@@ -64,28 +54,34 @@ export const TodosListItem = ({ todo }: { todo: TodosToServer }) => {
       className={
         "todo-list-item " +
         (todo?.id === isLoadingDelete && " process ") +
-        (todo.priorety?.value === TodoPriorety.dangerous &&
-          " dangerous-priorety ") +
+        (todo.priorety?.value === TodoPriorety.dangerous && " dangerous-priorety ") +
         (todo.isDone && " done ")
       }
     >
       <div className="todo-item-container">
         <div
-          className={
-            "todo-item-done-btn " +
-            (todo.isDone && " checked ") +
-            (todo.id === isLoadingIsDone && " process")
-          }
+          className={"todo-item-done-btn " + (todo.isDone && " checked ") + (todo.id === isLoadingIsDone && " process")}
           onClick={() => handleClickEditTodoState("isDone")}
         ></div>
         <div className="todo-item-main-info">
           <div className="todo-item-header">
-            <Link to={"/todos/" + todo.id} className="todo-item-name">
-              {todo.title}
-            </Link>
-            {todo.priorety?.value === TodoPriorety.dangerous && (
-              <div className="todo-item-priorety-label">Срочно</div>
-            )}
+            <div className="todo-item-title">
+              <Link to={"/todos/" + todo.id} className="todo-item-name">
+                {todo.title}
+              </Link>
+              {todo.priorety?.value === TodoPriorety.dangerous && <div className="todo-item-priorety-label">Срочно</div>}
+            </div>
+            <div className="todo-item-actions-btns">
+              <button className="todo-item-action-btn todo-item-action-btn-fav" onClick={() => handleClickEditTodoState("favourite")}>
+                {todo.id === isLoadingFav ? (
+                  <LoaderInline />
+                ) : (
+                  <span className={"todo-item-action-btn-fav-icon " + (todo.favourite ? "checked" : "unchecked")}></span>
+                )}
+              </button>
+              <EditButton handleClick={handleClickEdit} id={todo.id} />
+              <DeleteButton handleClick={handleClickDelete} id={todo.id} isLoading={isLoadingDelete} />
+            </div>
           </div>
           <div className="todo-item-details">
             <p className="todo-item-description">{todo.description}</p>
@@ -99,33 +95,8 @@ export const TodosListItem = ({ todo }: { todo: TodosToServer }) => {
               </ul>
             )}
 
-            <div className="todo-item-deadline">
-              {getCurrentDate(todo.dateDeadline, false)}
-            </div>
+            <div className="todo-item-deadline">{getCurrentDate(todo.dateDeadline, false)}</div>
           </div>
-        </div>
-        <div className="todo-item-actions-btns">
-          <button
-            className="todo-item-action-btn todo-item-action-btn-fav"
-            onClick={() => handleClickEditTodoState("favourite")}
-          >
-            {todo.id === isLoadingFav ? (
-              <LoaderInline />
-            ) : (
-              <span
-                className={
-                  "todo-item-action-btn-fav-icon " +
-                  (todo.favourite ? "checked" : "unchecked")
-                }
-              ></span>
-            )}
-          </button>
-          <EditButton handleClick={handleClickEdit} id={todo.id} />
-          <DeleteButton
-            handleClick={handleClickDelete}
-            id={todo.id}
-            isLoading={isLoadingDelete}
-          />
         </div>
       </div>
     </li>

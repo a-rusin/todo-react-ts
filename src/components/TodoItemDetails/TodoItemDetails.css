@@ -169,3 +169,77 @@
   background-image: url("../../assets/icons/delete.svg");
   background-size: 19rem;
 }
+
+@media (max-width: 640px) {
+  .todo-details-container {
+    margin-top: 30rem;
+    padding: 12rem;
+    border-radius: 8rem;
+  }
+
+  .todo-details-title {
+    padding-top: 20rem;
+    font-size: 24rem;
+  }
+
+  .todo-details-description {
+    font-size: 14rem;
+    padding-top: 16rem;
+  }
+
+  .todo-details-list {
+    font-size: 14rem;
+    padding-top: 30rem;
+  }
+
+  .todo-details-list > *:not(:first-child) {
+    padding-top: 12rem;
+  }
+
+  .todo-details-list-item {
+    gap: 4rem;
+  }
+
+  .todo-details-label {
+    flex: 0 0 100rem;
+  }
+
+  .todo-details-tags-list {
+    gap: 4rem;
+  }
+
+  .todo-details-tags-list-item {
+    font-size: 12rem;
+  }
+
+  .todo-details-btns {
+    flex-direction: column;
+    gap: 10rem;
+  }
+
+  .todo-details-btn {
+    font-size: 14rem;
+    gap: 10rem;
+  }
+
+  .todo-details-btn::before {
+    width: 16rem;
+    height: 16rem;
+  }
+
+  .todo-details-btn.todo-details-btn-done::before {
+    background-size: 16rem;
+  }
+
+  .todo-details-btn.todo-details-btn-fav.checked::before {
+    background-size: 16rem;
+  }
+
+  .todo-details-btn.todo-details-btn-fav.unchecked::before {
+    background-size: 16rem;
+  }
+
+  .todo-details-btn.todo-details-btn-edit::before {
+    background-size: 17rem;
+  }
+}

@@ -49,3 +49,24 @@
   color: rgb(202, 9, 9);
   cursor: pointer;
 }
+
+@media (max-width: 640px) {
+  .todo-comments-list {
+    padding-top: 20rem;
+  }
+
+  .todo-comments-list-item {
+    padding: 12rem;
+    border-radius: 8rem;
+    font-size: 14rem;
+  }
+
+  .todo-comments-list-empty {
+    padding-top: 20rem;
+    font-size: 14rem;
+  }
+
+  .todo-comments-date {
+    font-size: 12rem;
+  }
+}

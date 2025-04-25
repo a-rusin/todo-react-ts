@@ -16,3 +16,18 @@
   width: 20rem;
   height: 20rem;
 }
+
+@media (max-width: 640px) {
+  .checkbox-block {
+    gap: 6rem;
+  }
+
+  .checkbox-label {
+    font-size: 14rem;
+  }
+
+  .checkbox-field {
+    width: 14rem;
+    height: 14rem;
+  }
+}

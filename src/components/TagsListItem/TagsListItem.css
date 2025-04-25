@@ -19,9 +19,29 @@
 
 .tags-title {
   flex: 0 0 70%;
+  font-size: 16rem;
+  line-height: 125%;
 }
 
 .tags-btns {
   display: flex;
   gap: 10rem;
+}
+
+@media (max-width: 640px) {
+  .tags-item {
+    padding: 12rem;
+  }
+
+  .tags-title {
+    font-size: 14rem;
+  }
+
+  .tags-wrapper {
+    gap: 10rem;
+  }
+
+  .tags-btns {
+    gap: 6rem;
+  }
 }
