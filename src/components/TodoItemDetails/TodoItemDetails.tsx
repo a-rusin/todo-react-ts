@@ -1,13 +1,13 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Todo, TodosContextLoading, TodosToServer } from "../../models/Todo";
+import { TodosContextLoading, TodosToServer } from "../../models/Todo";
 import { CreateAndUpateFormType } from "../../models/CreateAndUpdateFromTypes";
 import { isLoadingValue } from "../../utils/isLoadingValue";
 import { getCurrentDate } from "../../utils/getCurrentDate";
-import "./TodoItemDetails.css";
 import { SingleSelectOptions } from "../../models/MultiSingleSelectOptions";
 import { prepareTags } from "../../utils/prepareDataForClient";
 import { useContext } from "react";
 import { TagsContext } from "../../context/TagsContext";
+import "./TodoItemDetails.css";
 
 interface TodoItemDetailsProps {
   todo: TodosToServer;
@@ -21,12 +21,7 @@ interface TodoItemDetailsProps {
   ) => void;
 }
 
-export const TodoItemDetails = ({
-  todo,
-  createUpdateTodos,
-  deleteTodos,
-  isLoading,
-}: TodoItemDetailsProps) => {
+export const TodoItemDetails = ({ todo, createUpdateTodos, deleteTodos, isLoading }: TodoItemDetailsProps) => {
   const tagsContext = useContext(TagsContext);
 
   if (!tagsContext) {
@@ -46,12 +41,7 @@ export const TodoItemDetails = ({
   const handleClickEditTodoState = (prop: "isDone" | "favourite") => {
     const loadingType = `${prop}Item` as keyof TodosContextLoading;
 
-    createUpdateTodos(
-      { ...todo, [prop]: !todo[prop] },
-      loadingType,
-      "edit-item",
-      false
-    );
+    createUpdateTodos({ ...todo, [prop]: !todo[prop] }, loadingType, "edit-item", false);
   };
 
   let updatedTags: SingleSelectOptions<string>[] = prepareTags(todo.tags, tags);
@@ -60,7 +50,7 @@ export const TodoItemDetails = ({
     <div className={"todo-details-container " + (todo.isDone && "done")}>
       <div className="todo-details-btns">
         <button
-          className="todo-details-btn todo-details-btn-done"
+          className={"todo-details-btn todo-details-btn-done " + (todo.id === isLoadingIsDone && " proccess")}
           onClick={() => handleClickEditTodoState("isDone")}
         >
           {todo.isDone ? "Не выполнено" : "Выполнено"}
@@ -86,10 +76,7 @@ export const TodoItemDetails = ({
           Изменить задачу
         </button>
         <button
-          className={
-            "todo-details-btn todo-details-btn-remove " +
-            (todo.id === isLoadingDelete && " proccess")
-          }
+          className={"todo-details-btn todo-details-btn-remove " + (todo.id === isLoadingDelete && " proccess")}
           onClick={() => deleteTodos(todo.id!, true)}
         >
           Удалить задачу
@@ -104,23 +91,15 @@ export const TodoItemDetails = ({
         </li>
         <li className="todo-details-list-item">
           <div className="todo-details-label">Приоретет:</div>
-          <div
-            className={"todo-details-value-priorety " + todo.priorety?.value}
-          >
-            {todo.priorety?.label}
-          </div>
+          <div className={"todo-details-value-priorety " + todo.priorety?.value}>{todo.priorety?.label}</div>
         </li>
         <li className="todo-details-list-item">
           <div className="todo-details-label">Дедлайн:</div>
-          <div className="todo-details-value">
-            {getCurrentDate(todo.dateDeadline, false)}
-          </div>
+          <div className="todo-details-value">{getCurrentDate(todo.dateDeadline, false)}</div>
         </li>
         <li className="todo-details-list-item">
           <div className="todo-details-label">Дата создания:</div>
-          <div className="todo-details-value">
-            {getCurrentDate(todo.createdDate, false)}
-          </div>
+          <div className="todo-details-value">{getCurrentDate(todo.createdDate, false)}</div>
         </li>
         <li className="todo-details-list-item">
           <div className="todo-details-label">Теги:</div>

@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import "./TodosListItem.css";
 import { Link } from "react-router-dom";
-import { Todo, TodoPriorety, TodosContextLoading, TodosToServer } from "../../models/Todo";
+import { TodoPriorety, TodosContextLoading, TodosToServer } from "../../models/Todo";
 import { useContext } from "react";
 import { TodosContext } from "../../context/TodosContext";
 import { LoaderInline } from "../LoaderInline/LoaderInline";

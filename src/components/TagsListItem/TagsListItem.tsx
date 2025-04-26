@@ -6,7 +6,6 @@ import { Tag } from "../../models/Tags";
 import { ValidatorConfig } from "../../models/ValidatorConfig";
 import { useForm } from "../../hooks/useForm";
 import { CreateUpdateTagForm } from "../CreateUpdateTagForm/CreateUpdateTagForm";
-import { nanoid } from "nanoid";
 import { TagsContext } from "../../context/TagsContext";
 import { isLoadingValue } from "../../utils/isLoadingValue";
 
@@ -35,12 +34,11 @@ export const TagsListItem = ({ tag }: TagsListItemProps) => {
 
   const { createUpdateTags, isLoading, deleteTag } = tagsContext;
 
-  const { formValue, handleChange, handleReset, handleSubmit, errors } =
-    useForm<Tag>({
-      defaultValue,
-      onSubmit,
-      validatorConfig,
-    });
+  const { formValue, handleChange, handleReset, handleSubmit, errors } = useForm<Tag>({
+    defaultValue,
+    onSubmit,
+    validatorConfig,
+  });
 
   function onSubmit(data: Tag) {
     const updatedData: Required<Tag> = {
@@ -88,11 +86,7 @@ export const TagsListItem = ({ tag }: TagsListItemProps) => {
         </div>
         <div className="tags-btns">
           <EditButton handleClick={handleClickEdit} />
-          <DeleteButton
-            handleClick={handleClickDelete}
-            id={tag.id}
-            isLoading={isLoadingDelete}
-          />
+          <DeleteButton handleClick={handleClickDelete} id={tag.id} isLoading={isLoadingDelete} />
         </div>
       </div>
     </li>

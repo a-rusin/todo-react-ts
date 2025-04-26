@@ -4,11 +4,7 @@ import { TagsContext } from "../../context/TagsContext";
 import { CreateAndUpateFormType } from "../../models/CreateAndUpdateFromTypes";
 import { HandleChangeTypes } from "../../models/HandleChange";
 import { SingleSelectOptions } from "../../models/MultiSingleSelectOptions";
-import {
-  CreateAndUpateTodoFormValue,
-  Todo,
-  TodosToServer,
-} from "../../models/Todo";
+import { CreateAndUpateTodoFormValue } from "../../models/Todo";
 import { ValidatorResult } from "../../models/ValidatorConfig";
 import { Button } from "../Button/Button";
 import { CheckBoxFiled } from "../CheckBoxField/CheckBoxField";
@@ -21,13 +17,7 @@ import { prepareTags } from "../../utils/prepareDataForClient";
 
 interface CreateAndUpdateTodoFormProps {
   formValue: CreateAndUpateTodoFormValue | undefined;
-  handleChange: ({
-    name,
-    value,
-  }: {
-    name: string;
-    value: HandleChangeTypes;
-  }) => void;
+  handleChange: ({ name, value }: { name: string; value: HandleChangeTypes }) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleReset: () => void;
   options: SingleSelectOptions<string>[] | undefined;
@@ -54,10 +44,7 @@ export const CreateAndUpdateTodoForm = ({
 
   const { tags } = tagsContext;
 
-  let updatedTags: SingleSelectOptions<string>[] = prepareTags(
-    formValue?.tags,
-    tags
-  );
+  let updatedTags: SingleSelectOptions<string>[] = prepareTags(formValue?.tags, tags);
 
   return (
     <form className="form-create-update" onSubmit={handleSubmit}>
@@ -117,21 +104,8 @@ export const CreateAndUpdateTodoForm = ({
         errors={errors?.favourite}
       />
       <div className="btns-group">
-        <Button
-          label={mode === "create" ? "Создать" : "Сохранить"}
-          cssType="primary"
-          type="submit"
-          isLoading={isLoading}
-          inputSizes="xl"
-        />
-        <Button
-          label="Сбросить"
-          cssType="secondary"
-          type="reset"
-          onClick={handleReset}
-          isLoading={false}
-          inputSizes="xl"
-        />
+        <Button label={mode === "create" ? "Создать" : "Сохранить"} cssType="primary" type="submit" isLoading={isLoading} inputSizes="xl" />
+        <Button label="Сбросить" cssType="secondary" type="reset" onClick={handleReset} isLoading={false} inputSizes="xl" />
       </div>
     </form>
   );

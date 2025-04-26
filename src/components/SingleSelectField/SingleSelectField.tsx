@@ -1,5 +1,4 @@
 import Select from "react-select";
-
 import { SingleSelectOptions } from "../../models/MultiSingleSelectOptions";
 import "./SingleSelectField.css";
 import { useState } from "react";
@@ -8,27 +7,13 @@ interface SingleSelectFieldProps {
   label: string;
   name: string;
   value: SingleSelectOptions | null | undefined;
-  onChange: ({
-    name,
-    value,
-  }: {
-    name: string;
-    value: SingleSelectOptions | null;
-  }) => void;
+  onChange: ({ name, value }: { name: string; value: SingleSelectOptions | null }) => void;
   placeholder: string;
   options: SingleSelectOptions[];
   errors?: string[];
 }
 
-export const SingleSelectField = ({
-  label,
-  name,
-  onChange,
-  value,
-  placeholder,
-  options,
-  errors,
-}: SingleSelectFieldProps) => {
+export const SingleSelectField = ({ label, name, onChange, value, placeholder, options, errors }: SingleSelectFieldProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleChange = (newValue: SingleSelectOptions | null) => {
@@ -40,10 +25,7 @@ export const SingleSelectField = ({
   };
 
   return (
-    <div
-      className={errors ? "singleselect-block invalid" : "singleselect-block"}
-      onClick={toggleMenu}
-    >
+    <div className={errors ? "singleselect-block invalid" : "singleselect-block"} onClick={toggleMenu}>
       <label className="singleselect-label">{label}:</label>
       <Select<SingleSelectOptions>
         name={name}

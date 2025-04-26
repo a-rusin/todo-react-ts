@@ -1,19 +1,18 @@
 import { useContext } from "react";
 import { useForm } from "../../hooks/useForm";
-import { LoginValue, RegisterValue } from "../../models/LoginRegister";
+import { RegisterValue } from "../../models/LoginRegister";
 import { ValidatorConfig } from "../../models/ValidatorConfig";
 import { LoginRegisterFormType } from "../../pages/LoginPage";
 import { Button } from "../Button/Button";
 import { InputField } from "../InputField/InputField";
 import "./RegisterForm.css";
 import { AuthContext } from "../../context/AuthContext";
-import { getRandomNumber } from "../../utils/getRandomNumber";
 
 const defaultValue: RegisterValue = {
-  login: "test",
-  name: "test",
-  email: `test${getRandomNumber(1, 100)}@mail.ru`,
-  password: "123456",
+  login: "",
+  name: "",
+  email: "",
+  password: "",
 };
 
 const validatorConfig: ValidatorConfig = {
@@ -45,12 +44,11 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
 
   const { register, error, resetError, isLoading } = authContext;
 
-  const { formValue, handleChange, handleSubmit, errors } =
-    useForm<RegisterValue>({
-      defaultValue,
-      onSubmit,
-      validatorConfig,
-    });
+  const { formValue, handleChange, handleSubmit, errors } = useForm<RegisterValue>({
+    defaultValue,
+    onSubmit,
+    validatorConfig,
+  });
 
   function onSubmit(data: RegisterValue) {
     register(data, () => handleClick("login"));
@@ -115,13 +113,7 @@ export const RegisterForm = ({ handleClick }: RegisterFormProps) => {
       {error && <div className="auth-form-error">Ошибка: {error}</div>}
 
       <div className="btns-auth-group">
-        <Button
-          label="Регистрация"
-          cssType="primary"
-          type="submit"
-          isLoading={isLoading}
-          inputSizes="xl"
-        />
+        <Button label="Регистрация" cssType="primary" type="submit" isLoading={isLoading} inputSizes="xl" />
       </div>
       <p className="auth-form-change-mode">
         Уже есть аккаунт? <span onClick={handleClickChangeMode}>Войти</span>

@@ -9,8 +9,8 @@ import { InputField } from "../InputField/InputField";
 import "./LoginForm.css";
 
 const defaultValue: LoginValue = {
-  email: "test@mail.ru",
-  password: "123456",
+  email: "",
+  password: "",
 };
 
 const validatorConfig: ValidatorConfig = {
@@ -36,13 +36,11 @@ export const LoginForm = ({ handleClick }: LoginFormProps) => {
 
   const { login, error, resetError, isLoading } = authContext;
 
-  const { formValue, handleChange, handleSubmit, errors } = useForm<LoginValue>(
-    {
-      defaultValue,
-      onSubmit,
-      validatorConfig,
-    }
-  );
+  const { formValue, handleChange, handleSubmit, errors } = useForm<LoginValue>({
+    defaultValue,
+    onSubmit,
+    validatorConfig,
+  });
 
   function onSubmit(data: LoginValue) {
     login(data);
@@ -82,17 +80,10 @@ export const LoginForm = ({ handleClick }: LoginFormProps) => {
       />
       {error && <div className="auth-form-error">Ошибка: {error}</div>}
       <div className="btns-auth-group">
-        <Button
-          label="Войти"
-          cssType="primary"
-          type="submit"
-          isLoading={isLoading}
-          inputSizes="xl"
-        />
+        <Button label="Войти" cssType="primary" type="submit" isLoading={isLoading} inputSizes="xl" />
       </div>
       <p className="auth-form-change-mode">
-        Еще нет аккаунта?{" "}
-        <span onClick={handleClickChangeMode}>Зарегистрироваться</span>
+        Еще нет аккаунта? <span onClick={handleClickChangeMode}>Зарегистрироваться</span>
       </p>
     </form>
   );
