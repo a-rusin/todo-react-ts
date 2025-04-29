@@ -4,7 +4,7 @@
   "description": "My pet project - Todo App",
   "theme_color": "#262e33",
   "background_color": "#262e33",
-  "display": "standalone",
+  "display": "minimal-ui",
   "orientation": "portrait",
   "start_url": "/index.html",
   "icons": [
