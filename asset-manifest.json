@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/todo-react-ts/static/css/main.ab86235d.css",
-    "main.js": "/todo-react-ts/static/js/main.5b74605a.js",
+    "main.js": "/todo-react-ts/static/js/main.85852054.js",
     "static/media/done.svg": "/todo-react-ts/static/media/done.eba47dd2f40aade441b8.svg",
     "static/media/delete.svg": "/todo-react-ts/static/media/delete.acdfc720843c57f3e8c3.svg",
     "index.html": "/todo-react-ts/index.html",
@@ -11,10 +11,10 @@
     "static/media/edit.svg": "/todo-react-ts/static/media/edit.60ded2c79dffaa3b2acc.svg",
     "static/media/done-v2.svg": "/todo-react-ts/static/media/done-v2.31b077b8a78e2e3e8d65.svg",
     "main.ab86235d.css.map": "/todo-react-ts/static/css/main.ab86235d.css.map",
-    "main.5b74605a.js.map": "/todo-react-ts/static/js/main.5b74605a.js.map"
+    "main.85852054.js.map": "/todo-react-ts/static/js/main.85852054.js.map"
   },
   "entrypoints": [
     "static/css/main.ab86235d.css",
-    "static/js/main.5b74605a.js"
+    "static/js/main.85852054.js"
   ]
 }
