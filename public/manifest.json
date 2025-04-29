@@ -4,9 +4,9 @@
   "description": "My pet project - Todo App",
   "theme_color": "#262e33",
   "background_color": "#262e33",
-  "display": "minimal-ui",
+  "display": "fullscreen",
   "orientation": "portrait",
-  "start_url": "/index.html",
+  "start_url": "/todo-react-ts/index.html",
   "icons": [
     {
       "src": "/todo-react-ts/assets/icons/icon-48x48.png",
