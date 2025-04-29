@@ -2,5 +2,7 @@
   "apiEndPoint": "https://todo-react-ts-app-default-rtdb.firebaseio.com",
   "isFirebase": true,
   "apiKey": "AIzaSyCVXZzjn83G8k859paxvYV4_NS01dT6CwE",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "gh-pages-deploy": true,
+  "repoName": "/todo-react-ts"
 }
